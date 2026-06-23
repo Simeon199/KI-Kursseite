@@ -14,7 +14,7 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
   const EMAILJS_CONFIRM_TEMPLATE_ID = 'YOUR_CONFIRM_TEMPLATE_ID';  // Bestaetigung an Kunden
   // ═══════════════════════════════════════════════════════
 
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  // emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   function kinderfelderGenerieren(anzahl) {
     const container = document.getElementById('kinder-felder');
