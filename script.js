@@ -79,133 +79,284 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
       .trim();
   }
 
-  document.getElementById('booking-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+// ==========================================
+// KONFIGURATION (Zentral an einer Stelle)
+// ==========================================
+const CONFIG = {
+  n8nWebhookUrl: 'https://n8n.meine-subdomain.de/webhook/dein-neuer-kurs-pfad',
+  digistoreBaseUrl: 'https://www.checkout-ds24.com/product/705362',
+  terminMap: {
+    'august-1': '03. – 08. August (vormittags)',
+    'august-2': '10. – 14. August (vormittags)',
+    'beide':    'Beide Termine möglich'
+  }
+};
 
-    // Spam-Schutz: Honeypot-Feld darf nicht befuellt sein (nur Bots fuellen unsichtbare Felder)
-    const honeypot = document.getElementById('website');
-    if (honeypot && honeypot.value.trim() !== '') {
-      console.warn('Spam-Versuch erkannt – Anmeldung verworfen');
-      return;
+// ==========================================
+// FORMULARSCHUTZ & VALIDIERUNG
+// ==========================================
+function istSpam() {
+  const honeypot = document.getElementById('website');
+  return !!(honeypot && honeypot.value.trim() !== '');
+}
+
+function setzeButtonLadestatus(button, wirdGeladen, originalText = '') {
+  button.disabled = wirdGeladen;
+  button.textContent = wirdGeladen ? 'Wird zur Zahlung weitergeleitet …' : originalText;
+}
+
+function markiereEingabeUngueltig(element) {
+  element.style.borderColor = '#E07B54';
+  return false;
+}
+
+function validierePflichtfelder(form) {
+  let istValid = true;
+  form.querySelectorAll('[required]').forEach(el => {
+    el.style.borderColor = '';
+    const istLeer = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
+    const istUngueltig = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
+    if (istLeer || istUngueltig) {
+      istValid = markiereEingabeUngueltig(el);
     }
-
-    const submitBtn = this.querySelector('.btn-submit');
-    if (submitBtn.disabled) return; // doppeltes Absenden verhindern
-    submitBtn.disabled = true;
-    const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = 'Wird gesendet …';
-
-    const reaktivieren = function() {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalBtnText;
-    };
-
-    // Pflichtfelder + Eingabemuster (pattern) pruefen
-    const required = this.querySelectorAll('[required]');
-    let valid = true;
-    required.forEach(function(el) {
-      el.style.borderColor = '';
-      const leer = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
-      const ungueltig = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
-      if (leer || ungueltig) {
-        el.style.borderColor = '#E07B54';
-        valid = false;
-      }
-    });
-    if (!valid) {
-      const first = this.querySelector('[required][style*="E07B54"]');
-      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      reaktivieren();
-      return;
-    }
-
-    const jetzt = new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' });
-
-    const kinderAnzahl = parseInt(document.getElementById('kinder-anzahl').value) || 1;
-    const kinderDetails = [];
-    for (let i = 1; i <= kinderAnzahl; i++) {
-      const vorname  = document.getElementById('vorname-kind-' + i);
-      const nachname = document.getElementById('nachname-kind-' + i);
-      const klasse   = document.getElementById('klasse-kind-' + i);
-      const schulart = document.getElementById('schulart-kind-' + i);
-      const schule   = document.getElementById('schule-kind-' + i);
-      kinderDetails.push({
-        vorname:  vorname  ? sicherFuerText(vorname.value)  : '–',
-        nachname: nachname ? sicherFuerText(nachname.value) : '–',
-        klasse:   klasse   ? sicherFuerText(klasse.value)    : '–',
-        schulart: schulart ? sicherFuerText(schulart.value)  : '–',
-        schule:   schule   ? (sicherFuerText(schule.value) || '–') : '–',
-      });
-    }
-    const kinderText = kinderDetails.map(function(k, idx) {
-      return 'Kind ' + (idx+1) + ': ' + k.vorname + ' ' + k.nachname + ' – ' +
-             k.klasse + ', ' + k.schulart + (k.schule !== '–' ? ' (' + k.schule + ')' : '');
-    }).join(' | ');
-
-    const terminMap = {
-      'august-1': '03. – 08. August (vormittags)',
-      'august-2': '10. – 14. August (vormittags)',
-      'beide':    'Beide Termine möglich'
-    };
-
-    const daten = {
-      zeitpunkt:   jetzt,
-      vorname:     sicherFuerText(document.getElementById('vorname').value),
-      nachname:    sicherFuerText(document.getElementById('nachname').value),
-      email:       document.getElementById('email').value.trim().toLowerCase(),
-      telefon:     sicherFuerText(document.getElementById('telefon').value) || '–',
-      adresse:     sicherFuerText(document.getElementById('adresse').value),
-      kinder:      kinderAnzahl,
-      kinder_text: kinderText,
-      termin:      document.getElementById('wunschtermin').value,
-      nachricht:   sicherFuerText(document.getElementById('nachricht').value) || '–',
-    };
-    daten.termin_text = terminMap[daten.termin] || '–';
-
-    // 1a) Benachrichtigung an Rein Campus
-    const mailAnRC = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email:    'service@rein-campus.de',
-      zeitpunkt:   daten.zeitpunkt,
-      vorname:     daten.vorname,
-      nachname:    daten.nachname,
-      email:       daten.email,
-      telefon:     daten.telefon,
-      adresse:     daten.adresse,
-      kinder:      daten.kinder,
-      kinder_text: daten.kinder_text,
-      termin_text: daten.termin_text,
-      nachricht:   daten.nachricht,
-    });
-
-    // 1b) Bestaetigungsmail an Kunden
-    // Empfohlener Template-Inhalt:
-    // Betreff: Deine Anmeldung zum KI-Fuehrerschein - Rein Campus
-    // Hallo {{vorname}} {{nachname}}, vielen Dank fuer deine Anmeldung zum
-    // KI-Fuehrerschein fuer Schuelerinnen und Schueler! Wir haben deine Anfrage
-    // erhalten und melden uns in Kuerze bei dir.
-    // Gewuenschter Termin: {{termin_text}}  |  Anzahl Kinder: {{kinder}}
-    // Bei Fragen: 07644 9294280 / service@rein-campus.de
-    const mailAnKunde = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
-      to_email:    daten.email,
-      vorname:     daten.vorname,
-      nachname:    daten.nachname,
-      termin_text: daten.termin_text,
-      kinder:      daten.kinder,
-    });
-
-    Promise.allSettled([mailAnRC, mailAnKunde]).then(function(results) {
-      results.forEach(function(r, i) {
-        const label = i === 0 ? 'Benachrichtigung an Rein Campus' : 'Bestätigungsmail an Kunden';
-        if (r.status === 'fulfilled') {
-          console.log('✅ ' + label + ' gesendet');
-        } else {
-          console.error('❌ ' + label + ' fehlgeschlagen:', r.reason);
-        }
-      });
-    });
-
-    // Erfolgsseite zeigen
-    document.getElementById('form-wrap').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+  return istValid;
+}
+
+function fokussiereErstenFehler(form) {
+  const ersterFehler = form.querySelector('[required][style*="E07B54"]');
+  if (ersterFehler) {
+    ersterFehler.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// ==========================================
+// DATENAUFBEREITUNG (KINDER & FORMULAR)
+// ==========================================
+function extrahiereKindDaten(index) {
+  const vorname  = document.getElementById(`vorname-kind-${index}`);
+  const nachname = document.getElementById(`nachname-kind-${index}`);
+  const klasse   = document.getElementById(`klasse-kind-${index}`);
+  const schulart = document.getElementById(`schulart-kind-${index}`);
+  const schule   = document.getElementById(`schule-kind-${index}`);
+  
+  return {
+    vorname:  vorname  ? sicherFuerText(vorname.value)  : '–',
+    nachname: nachname ? sicherFuerText(nachname.value) : '–',
+    klasse:   klasse   ? sicherFuerText(klasse.value)    : '–',
+    schulart: schulart ? sicherFuerText(schulart.value)  : '–',
+    schule:   schule   ? (sicherFuerText(schule.value) || '–') : '–',
+  };
+}
+
+function generiereKinderText(anzahl) {
+  const details = Array.from({ length: anzahl }, (_, i) => extrahiereKindDaten(i + 1));
+  return details.map((k, idx) => {
+    const schuleZusatz = k.schule !== '–' ? ` (${k.schule})` : '';
+    return `Kind ${idx + 1}: ${k.vorname} ${k.nachname} – ${k.klasse}, ${k.schulart}${schuleZusatz}`;
+  }).join(' | ');
+}
+
+function sammleFormularDaten(form) {
+  const kinderAnzahl = parseInt(document.getElementById('kinder-anzahl').value) || 1;
+  const termin = document.getElementById('wunschtermin').value;
+  return {
+    zeitpunkt:      new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' }),
+    vorname:        sicherFuerText(document.getElementById('vorname').value),
+    nachname:       sicherFuerText(document.getElementById('nachname').value),
+    email:          document.getElementById('email').value.trim().toLowerCase(),
+    telefon:        sicherFuerText(document.getElementById('telefon').value) || '–',
+    adresse:        sicherFuerText(document.getElementById('adresse').value),
+    kinder:         kinderAnzahl,
+    kinder_text:    generiereKinderText(kinderAnzahl),
+    termin:         termin,
+    termin_text:    CONFIG.terminMap[termin] || '–',
+    nachricht:      sicherFuerText(document.getElementById('nachricht').value) || '–',
+    zahlungsstatus: 'Wartet auf Zahlung'
+  };
+}
+
+// ==========================================
+// SCHNITTSTELLEN-INTERAKTIONEN (API & REDIRECT)
+// ==========================================
+function sendeAnN8n(daten) {
+  return fetch(CONFIG.n8nWebhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(daten)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('n8n Übertragung fehlgeschlagen');
+    console.log('✅ Daten erfolgreich an n8n übertragen');
+  })
+  .catch(err => console.error('❌ Fehler:', err));
+}
+
+function leiteZuDigistore(daten) {
+  const urlParams = new URLSearchParams({
+    email: daten.email,
+    first_name: daten.vorname,
+    last_name: daten.nachname
+  });
+  window.location.href = `${CONFIG.digistoreBaseUrl}?${urlParams.toString()}`;
+}
+
+// ==========================================
+// HAUPT-EVENT-LISTENER
+// ==========================================
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  if (istSpam()) return console.warn('Spam-Versuch erkannt');
+
+  const submitBtn = this.querySelector('.btn-submit');
+  const originalBtnText = submitBtn.textContent;
+  
+  if (submitBtn.disabled) return;
+  setzeButtonLadestatus(submitBtn, true);
+
+  if (!validierePflichtfelder(this)) {
+    fokussiereErstenFehler(this);
+    setzeButtonLadestatus(submitBtn, false, originalBtnText);
+    return;
+  }
+
+  const daten = sammleFormularDaten(this);
+  leiteZuDigistore(daten);
+
+  // sendeAnN8n(daten).then(() => {
+  //   leiteZuDigistore(daten);
+  // });
+});
+
+
+  // document.getElementById('booking-form').addEventListener('submit', function(e) {
+  //   e.preventDefault();
+
+  //   // Spam-Schutz: Honeypot-Feld darf nicht befuellt sein (nur Bots fuellen unsichtbare Felder)
+  //   const honeypot = document.getElementById('website');
+  //   if (honeypot && honeypot.value.trim() !== '') {
+  //     console.warn('Spam-Versuch erkannt – Anmeldung verworfen');
+  //     return;
+  //   }
+
+  //   const submitBtn = this.querySelector('.btn-submit');
+  //   if (submitBtn.disabled) return; // doppeltes Absenden verhindern
+  //   submitBtn.disabled = true;
+  //   const originalBtnText = submitBtn.textContent;
+  //   submitBtn.textContent = 'Wird gesendet …';
+
+  //   const reaktivieren = function() {
+  //     submitBtn.disabled = false;
+  //     submitBtn.textContent = originalBtnText;
+  //   };
+
+  //   // Pflichtfelder + Eingabemuster (pattern) pruefen
+  //   const required = this.querySelectorAll('[required]');
+  //   let valid = true;
+  //   required.forEach(function(el) {
+  //     el.style.borderColor = '';
+  //     const leer = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
+  //     const ungueltig = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
+  //     if (leer || ungueltig) {
+  //       el.style.borderColor = '#E07B54';
+  //       valid = false;
+  //     }
+  //   });
+  //   if (!valid) {
+  //     const first = this.querySelector('[required][style*="E07B54"]');
+  //     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //     reaktivieren();
+  //     return;
+  //   }
+
+  //   const jetzt = new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' });
+
+  //   const kinderAnzahl = parseInt(document.getElementById('kinder-anzahl').value) || 1;
+  //   const kinderDetails = [];
+  //   for (let i = 1; i <= kinderAnzahl; i++) {
+  //     const vorname  = document.getElementById('vorname-kind-' + i);
+  //     const nachname = document.getElementById('nachname-kind-' + i);
+  //     const klasse   = document.getElementById('klasse-kind-' + i);
+  //     const schulart = document.getElementById('schulart-kind-' + i);
+  //     const schule   = document.getElementById('schule-kind-' + i);
+  //     kinderDetails.push({
+  //       vorname:  vorname  ? sicherFuerText(vorname.value)  : '–',
+  //       nachname: nachname ? sicherFuerText(nachname.value) : '–',
+  //       klasse:   klasse   ? sicherFuerText(klasse.value)    : '–',
+  //       schulart: schulart ? sicherFuerText(schulart.value)  : '–',
+  //       schule:   schule   ? (sicherFuerText(schule.value) || '–') : '–',
+  //     });
+  //   }
+  //   const kinderText = kinderDetails.map(function(k, idx) {
+  //     return 'Kind ' + (idx+1) + ': ' + k.vorname + ' ' + k.nachname + ' – ' +
+  //            k.klasse + ', ' + k.schulart + (k.schule !== '–' ? ' (' + k.schule + ')' : '');
+  //   }).join(' | ');
+
+  //   const terminMap = {
+  //     'august-1': '03. – 08. August (vormittags)',
+  //     'august-2': '10. – 14. August (vormittags)',
+  //     'beide':    'Beide Termine möglich'
+  //   };
+
+  //   const daten = {
+  //     zeitpunkt:   jetzt,
+  //     vorname:     sicherFuerText(document.getElementById('vorname').value),
+  //     nachname:    sicherFuerText(document.getElementById('nachname').value),
+  //     email:       document.getElementById('email').value.trim().toLowerCase(),
+  //     telefon:     sicherFuerText(document.getElementById('telefon').value) || '–',
+  //     adresse:     sicherFuerText(document.getElementById('adresse').value),
+  //     kinder:      kinderAnzahl,
+  //     kinder_text: kinderText,
+  //     termin:      document.getElementById('wunschtermin').value,
+  //     nachricht:   sicherFuerText(document.getElementById('nachricht').value) || '–',
+  //   };
+  //   daten.termin_text = terminMap[daten.termin] || '–';
+
+  //   // 1a) Benachrichtigung an Rein Campus
+  //   const mailAnRC = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+  //     to_email:    'service@rein-campus.de',
+  //     zeitpunkt:   daten.zeitpunkt,
+  //     vorname:     daten.vorname,
+  //     nachname:    daten.nachname,
+  //     email:       daten.email,
+  //     telefon:     daten.telefon,
+  //     adresse:     daten.adresse,
+  //     kinder:      daten.kinder,
+  //     kinder_text: daten.kinder_text,
+  //     termin_text: daten.termin_text,
+  //     nachricht:   daten.nachricht,
+  //   });
+
+  //   // 1b) Bestaetigungsmail an Kunden
+  //   // Empfohlener Template-Inhalt:
+  //   // Betreff: Deine Anmeldung zum KI-Fuehrerschein - Rein Campus
+  //   // Hallo {{vorname}} {{nachname}}, vielen Dank fuer deine Anmeldung zum
+  //   // KI-Fuehrerschein fuer Schuelerinnen und Schueler! Wir haben deine Anfrage
+  //   // erhalten und melden uns in Kuerze bei dir.
+  //   // Gewuenschter Termin: {{termin_text}}  |  Anzahl Kinder: {{kinder}}
+  //   // Bei Fragen: 07644 9294280 / service@rein-campus.de
+  //   const mailAnKunde = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
+  //     to_email:    daten.email,
+  //     vorname:     daten.vorname,
+  //     nachname:    daten.nachname,
+  //     termin_text: daten.termin_text,
+  //     kinder:      daten.kinder,
+  //   });
+
+  //   Promise.allSettled([mailAnRC, mailAnKunde]).then(function(results) {
+  //     results.forEach(function(r, i) {
+  //       const label = i === 0 ? 'Benachrichtigung an Rein Campus' : 'Bestätigungsmail an Kunden';
+  //       if (r.status === 'fulfilled') {
+  //         console.log('✅ ' + label + ' gesendet');
+  //       } else {
+  //         console.error('❌ ' + label + ' fehlgeschlagen:', r.reason);
+  //       }
+  //     });
+  //   });
+
+  //   // Erfolgsseite zeigen
+  //   document.getElementById('form-wrap').style.display = 'none';
+  //   document.getElementById('success-msg').style.display = 'block';
+  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // });
