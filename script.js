@@ -1,20 +1,40 @@
+/**
+ * @fileoverview FAQ accordion interaction, form validation, data collection,
+ *               and booking form submission logic.
+ * @module script
+ */
+
 // ==========================================
 // FAQ ACCORDION
 // ==========================================
-document.querySelectorAll('.faq-q').forEach(function(question) {
-  question.addEventListener('click', function() {
-    const item = question.parentElement;
+
+/**
+ * Initialises click-to-expand behaviour for all FAQ items.
+ * Clicking an open question closes it; clicking a closed one opens it
+ * and collapses any currently open item.
+ */
+
+document.querySelectorAll('.faq-q').forEach(function (question) {
+  question.addEventListener('click', function () {
+    const item    = question.parentElement;
     const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
     if (!wasOpen) item.classList.add('open');
   });
 });
 
-// emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 // ==========================================
 // UTILITIES
 // ==========================================
+
+/**
+ * Escapes HTML special characters in a value and trims surrounding whitespace.
+ * Returns an empty string for null or undefined values.
+ * @param {*} value - The value to escape.
+ * @returns {string} A safe, trimmed string.
+ */
+
 function escapeText(value) {
   return String(value == null ? '' : value)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -24,20 +44,47 @@ function escapeText(value) {
 // ==========================================
 // FORM PROTECTION & VALIDATION
 // ==========================================
+
+/**
+ * Checks whether the honeypot field has been filled in, indicating a spam submission.
+ * @returns {boolean} True if the submission looks like spam.
+ */
+
 function isSpam() {
   const honeypot = document.getElementById('website');
   return !!(honeypot && honeypot.value.trim() !== '');
 }
 
+/**
+ * Puts a submit button into a loading or ready state.
+ * @param {HTMLButtonElement} button       - The submit button element.
+ * @param {boolean}           isLoading    - True to disable and show loading text.
+ * @param {string}            [originalText=''] - Text to restore when not loading.
+ */
+
 function setButtonLoadingState(button, isLoading, originalText = '') {
-  button.disabled = isLoading;
+  button.disabled    = isLoading;
   button.textContent = isLoading ? 'Wird zur Zahlung weitergeleitet …' : originalText;
 }
+
+/**
+ * Marks a form element as invalid by applying the error border colour.
+ * Always returns false so it can be used inline as a validation guard.
+ * @param {HTMLElement} element - The input or select element to mark.
+ * @returns {false}
+ */
 
 function markInputInvalid(element) {
   element.style.borderColor = '#E07B54';
   return false;
 }
+
+/**
+ * Validates all required fields in a form, marking invalid ones visually.
+ * Resets border colour on every field before re-evaluating.
+ * @param {HTMLFormElement} form - The form to validate.
+ * @returns {boolean} True if all required fields are valid.
+ */
 
 function validateRequiredFields(form) {
   let isValid = true;
@@ -45,23 +92,33 @@ function validateRequiredFields(form) {
     el.style.borderColor = '';
     const isEmpty   = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
     const isInvalid = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
-    if (isEmpty || isInvalid) {
-      isValid = markInputInvalid(el);
-    }
+    if (isEmpty || isInvalid) isValid = markInputInvalid(el);
   });
   return isValid;
 }
 
+/**
+ * Smoothly scrolls the first invalid field into view.
+ * @param {HTMLFormElement} form - The form that was validated.
+ */
+
 function focusFirstError(form) {
   const firstError = form.querySelector('[required][style*="E07B54"]');
-  if (firstError) {
-    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
+  if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // ==========================================
 // DATA EXTRACTION
 // ==========================================
+
+/**
+ * Reads and escapes the registration data for a single child from the DOM.
+ * Throws if a required DOM element is missing.
+ * @param {number} index - Child index (1-based).
+ * @returns {{firstName: string, lastName: string, grade: string, schoolType: string, schoolName: string}}
+ * @throws {Error} When a required DOM element cannot be found.
+ */
+
 function extractChildData(index) {
   const get = id => {
     const el = document.getElementById(id);
@@ -77,40 +134,86 @@ function extractChildData(index) {
   };
 }
 
-function buildChildrenText(count) {
-  const children = Array.from({ length: count }, (_, i) => extractChildData(i + 1));
-  return children.map((child, idx) => {
-    const schoolSuffix = child.schoolName !== '–' ? ` (${child.schoolName})` : '';
-    return `Kind ${idx + 1}: ${child.firstName} ${child.lastName} – ${child.grade}, ${child.schoolType}${schoolSuffix}`;
-  }).join(' | ');
+/**
+ * Formats a single child's data as a human-readable summary string.
+ * @param {{firstName: string, lastName: string, grade: string, schoolType: string, schoolName: string}} child
+ * @param {number} idx - Zero-based index used to compute the display number.
+ * @returns {string} E.g. "Kind 1: Max Mustermann – Klasse 8, Realschule (Hans-Thoma-RS)"
+ */
+
+function formatChildSummary(child, idx) {
+  const schoolSuffix = child.schoolName !== '–' ? ` (${child.schoolName})` : '';
+  return `Kind ${idx + 1}: ${child.firstName} ${child.lastName} – ${child.grade}, ${child.schoolType}${schoolSuffix}`;
 }
+
+/**
+ * Builds a pipe-separated summary string for all registered children.
+ * @param {number} count - Total number of children to collect.
+ * @returns {string} Combined children summary, entries separated by " | ".
+ */
+
+function buildChildrenText(count) {
+  return Array.from({ length: count }, (_, i) => extractChildData(i + 1))
+    .map(formatChildSummary)
+    .join(' | ');
+}
+
+/**
+ * @typedef {Object} FormData
+ * @property {string} timestamp        - Formatted submission date/time.
+ * @property {string} firstName        - Parent's first name.
+ * @property {string} lastName         - Parent's last name.
+ * @property {string} email            - Parent's e-mail address (lowercase).
+ * @property {string} phone            - Parent's phone number, or "–".
+ * @property {string} address          - Parent's address.
+ * @property {number} childCount       - Number of children registered.
+ * @property {string} childrenText     - Pipe-separated child summaries.
+ * @property {string} appointmentKey   - Raw select value for the desired appointment.
+ * @property {string} appointmentLabel - Human-readable appointment label.
+ * @property {string} message          - Optional message, or "–".
+ * @property {string} paymentStatus    - Initial payment status string.
+ */
+
+/**
+ * Collects and sanitises all booking form data into a single object.
+ * @param {number} childCount - Number of children (already validated).
+ * @returns {FormData} The collected form data.
+ */
 
 function collectFormData(childCount) {
   const appointmentKey = document.getElementById('wunschtermin').value;
   return {
-    timestamp:         new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' }),
-    firstName:         escapeText(document.getElementById('vorname').value),
-    lastName:          escapeText(document.getElementById('nachname').value),
-    email:             document.getElementById('email').value.trim().toLowerCase(),
-    phone:             escapeText(document.getElementById('telefon').value) || '–',
-    address:           escapeText(document.getElementById('adresse').value),
-    childCount:        childCount,
-    childrenText:      buildChildrenText(childCount),
-    appointmentKey:    appointmentKey,
-    appointmentLabel:  CONFIG.appointmentLabels[appointmentKey] || '–',
-    message:           escapeText(document.getElementById('nachricht').value) || '–',
-    paymentStatus:     'Wartet auf Zahlung'
+    timestamp:        new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' }),
+    firstName:        escapeText(document.getElementById('vorname').value),
+    lastName:         escapeText(document.getElementById('nachname').value),
+    email:            document.getElementById('email').value.trim().toLowerCase(),
+    phone:            escapeText(document.getElementById('telefon').value) || '–',
+    address:          escapeText(document.getElementById('adresse').value),
+    childCount,
+    childrenText:     buildChildrenText(childCount),
+    appointmentKey,
+    appointmentLabel: CONFIG.appointmentLabels[appointmentKey] || '–',
+    message:          escapeText(document.getElementById('nachricht').value) || '–',
+    paymentStatus:    'Wartet auf Zahlung'
   };
 }
 
 // ==========================================
 // API & REDIRECT
 // ==========================================
+
+/**
+ * Sends the collected form data to the configured n8n webhook.
+ * Errors are logged to the console and do not block the redirect.
+ * @param {FormData} data - The form data to transmit.
+ * @returns {Promise<void>}
+ */
+
 function sendToN8n(data) {
   return fetch(CONFIG.n8nWebhookUrl, {
-    method: 'POST',
+    method:  'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body:    JSON.stringify(data)
   })
   .then(res => {
     if (!res.ok) throw new Error('n8n transmission failed');
@@ -118,6 +221,12 @@ function sendToN8n(data) {
   })
   .catch(err => console.error('❌ Fehler:', err));
 }
+
+/**
+ * Redirects the browser to the Digistore24 checkout page,
+ * pre-filling name and e-mail via query parameters.
+ * @param {FormData} data - The form data used to build the redirect URL.
+ */
 
 function redirectToDigistore(data) {
   const params = new URLSearchParams({
@@ -131,176 +240,60 @@ function redirectToDigistore(data) {
 // ==========================================
 // MAIN SUBMIT HANDLER
 // ==========================================
-const bookingForm = document.getElementById('booking-form');
-if (bookingForm) {
-  bookingForm.addEventListener('submit', function(e) {
-    e.preventDefault();
 
-    if (isSpam()) return console.warn('Spam-Versuch erkannt');
+/**
+ * Resets the submit button to its original, interactive state.
+ * @param {HTMLButtonElement} button       - The submit button.
+ * @param {string}            originalText - Text to restore on the button.
+ */
 
-    const submitBtn       = this.querySelector('.btn-submit');
-    const originalBtnText = submitBtn.textContent;
-
-    if (submitBtn.disabled) return;
-    setButtonLoadingState(submitBtn, true);
-
-    // Guarantee fields exist and count matches the select value
-    const childCount = ensureChildFields();
-    if (!childCount) {
-      markInputInvalid(document.getElementById('kinder-anzahl'));
-      setButtonLoadingState(submitBtn, false, originalBtnText);
-      return;
-    }
-
-    if (!validateRequiredFields(this)) {
-      focusFirstError(this);
-      setButtonLoadingState(submitBtn, false, originalBtnText);
-      return;
-    }
-
-    let data;
-    try {
-      data = collectFormData(childCount);
-    } catch (err) {
-      console.error('❌ Fehler beim Einlesen der Kinderdaten:', err);
-      setButtonLoadingState(submitBtn, false, originalBtnText);
-      return;
-    }
-
-    sendToN8n(data).then(() => {
-      redirectToDigistore(data);
-    });
-  });
+function resetButton(button, originalText) {
+  setButtonLoadingState(button, false, originalText);
 }
 
+/**
+ * Validates child count, form fields, and collected data; then triggers
+ * the n8n webhook and Digistore redirect on success.
+ * @param {HTMLFormElement}   form         - The booking form element.
+ * @param {HTMLButtonElement} submitBtn    - The submit button element.
+ * @param {string}            originalText - Original button label to restore on error.
+ */
 
-  // document.getElementById('booking-form').addEventListener('submit', function(e) {
-  //   e.preventDefault();
+function processSubmission(form, submitBtn, originalText) {
+  const childCount = ensureChildFields();
+  if (!childCount) {
+    markInputInvalid(document.getElementById('kinder-anzahl'));
+    return resetButton(submitBtn, originalText);
+  }
+  if (!validateRequiredFields(form)) {
+    focusFirstError(form);
+    return resetButton(submitBtn, originalText);
+  }
+  let data;
+  try {
+    data = collectFormData(childCount);
+  } catch (err) {
+    console.error('❌ Fehler beim Einlesen der Kinderdaten:', err);
+    return resetButton(submitBtn, originalText);
+  }
+  sendToN8n(data).then(() => redirectToDigistore(data));
+}
 
-  //   // Spam-Schutz: Honeypot-Feld darf nicht befuellt sein (nur Bots fuellen unsichtbare Felder)
-  //   const honeypot = document.getElementById('website');
-  //   if (honeypot && honeypot.value.trim() !== '') {
-  //     console.warn('Spam-Versuch erkannt – Anmeldung verworfen');
-  //     return;
-  //   }
+/**
+ * Handles the booking form's submit event:
+ * checks for spam, guards against double submission, and delegates to {@link processSubmission}.
+ * @param {SubmitEvent} e - The form submit event.
+ */
 
-  //   const submitBtn = this.querySelector('.btn-submit');
-  //   if (submitBtn.disabled) return; // doppeltes Absenden verhindern
-  //   submitBtn.disabled = true;
-  //   const originalBtnText = submitBtn.textContent;
-  //   submitBtn.textContent = 'Wird gesendet …';
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  if (isSpam()) return console.warn('Spam-Versuch erkannt');
+  const submitBtn       = this.querySelector('.btn-submit');
+  const originalBtnText = submitBtn.textContent;
+  if (submitBtn.disabled) return;
+  setButtonLoadingState(submitBtn, true);
+  processSubmission(this, submitBtn, originalBtnText);
+}
 
-  //   const reaktivieren = function() {
-  //     submitBtn.disabled = false;
-  //     submitBtn.textContent = originalBtnText;
-  //   };
-
-  //   // Pflichtfelder + Eingabemuster (pattern) pruefen
-  //   const required = this.querySelectorAll('[required]');
-  //   let valid = true;
-  //   required.forEach(function(el) {
-  //     el.style.borderColor = '';
-  //     const leer = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
-  //     const ungueltig = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
-  //     if (leer || ungueltig) {
-  //       el.style.borderColor = '#E07B54';
-  //       valid = false;
-  //     }
-  //   });
-  //   if (!valid) {
-  //     const first = this.querySelector('[required][style*="E07B54"]');
-  //     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //     reaktivieren();
-  //     return;
-  //   }
-
-  //   const jetzt = new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' });
-
-  //   const kinderAnzahl = parseInt(document.getElementById('kinder-anzahl').value) || 1;
-  //   const kinderDetails = [];
-  //   for (let i = 1; i <= kinderAnzahl; i++) {
-  //     const vorname  = document.getElementById('vorname-kind-' + i);
-  //     const nachname = document.getElementById('nachname-kind-' + i);
-  //     const klasse   = document.getElementById('klasse-kind-' + i);
-  //     const schulart = document.getElementById('schulart-kind-' + i);
-  //     const schule   = document.getElementById('schule-kind-' + i);
-  //     kinderDetails.push({
-  //       vorname:  vorname  ? sicherFuerText(vorname.value)  : '–',
-  //       nachname: nachname ? sicherFuerText(nachname.value) : '–',
-  //       klasse:   klasse   ? sicherFuerText(klasse.value)    : '–',
-  //       schulart: schulart ? sicherFuerText(schulart.value)  : '–',
-  //       schule:   schule   ? (sicherFuerText(schule.value) || '–') : '–',
-  //     });
-  //   }
-  //   const kinderText = kinderDetails.map(function(k, idx) {
-  //     return 'Kind ' + (idx+1) + ': ' + k.vorname + ' ' + k.nachname + ' – ' +
-  //            k.klasse + ', ' + k.schulart + (k.schule !== '–' ? ' (' + k.schule + ')' : '');
-  //   }).join(' | ');
-
-  //   const terminMap = {
-  //     'august-1': '03. – 08. August (vormittags)',
-  //     'august-2': '10. – 14. August (vormittags)',
-  //     'beide':    'Beide Termine möglich'
-  //   };
-
-  //   const daten = {
-  //     zeitpunkt:   jetzt,
-  //     vorname:     sicherFuerText(document.getElementById('vorname').value),
-  //     nachname:    sicherFuerText(document.getElementById('nachname').value),
-  //     email:       document.getElementById('email').value.trim().toLowerCase(),
-  //     telefon:     sicherFuerText(document.getElementById('telefon').value) || '–',
-  //     adresse:     sicherFuerText(document.getElementById('adresse').value),
-  //     kinder:      kinderAnzahl,
-  //     kinder_text: kinderText,
-  //     termin:      document.getElementById('wunschtermin').value,
-  //     nachricht:   sicherFuerText(document.getElementById('nachricht').value) || '–',
-  //   };
-  //   daten.termin_text = terminMap[daten.termin] || '–';
-
-  //   // 1a) Benachrichtigung an Rein Campus
-  //   const mailAnRC = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-  //     to_email:    'service@rein-campus.de',
-  //     zeitpunkt:   daten.zeitpunkt,
-  //     vorname:     daten.vorname,
-  //     nachname:    daten.nachname,
-  //     email:       daten.email,
-  //     telefon:     daten.telefon,
-  //     adresse:     daten.adresse,
-  //     kinder:      daten.kinder,
-  //     kinder_text: daten.kinder_text,
-  //     termin_text: daten.termin_text,
-  //     nachricht:   daten.nachricht,
-  //   });
-
-  //   // 1b) Bestaetigungsmail an Kunden
-  //   // Empfohlener Template-Inhalt:
-  //   // Betreff: Deine Anmeldung zum KI-Fuehrerschein - Rein Campus
-  //   // Hallo {{vorname}} {{nachname}}, vielen Dank fuer deine Anmeldung zum
-  //   // KI-Fuehrerschein fuer Schuelerinnen und Schueler! Wir haben deine Anfrage
-  //   // erhalten und melden uns in Kuerze bei dir.
-  //   // Gewuenschter Termin: {{termin_text}}  |  Anzahl Kinder: {{kinder}}
-  //   // Bei Fragen: 07644 9294280 / service@rein-campus.de
-  //   const mailAnKunde = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
-  //     to_email:    daten.email,
-  //     vorname:     daten.vorname,
-  //     nachname:    daten.nachname,
-  //     termin_text: daten.termin_text,
-  //     kinder:      daten.kinder,
-  //   });
-
-  //   Promise.allSettled([mailAnRC, mailAnKunde]).then(function(results) {
-  //     results.forEach(function(r, i) {
-  //       const label = i === 0 ? 'Benachrichtigung an Rein Campus' : 'Bestätigungsmail an Kunden';
-  //       if (r.status === 'fulfilled') {
-  //         console.log('✅ ' + label + ' gesendet');
-  //       } else {
-  //         console.error('❌ ' + label + ' fehlgeschlagen:', r.reason);
-  //       }
-  //     });
-  //   });
-
-  //   // Erfolgsseite zeigen
-  //   document.getElementById('form-wrap').style.display = 'none';
-  //   document.getElementById('success-msg').style.display = 'block';
-  //   window.scrollTo({ top: 0, behavior: 'smooth' });
-  // });
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) bookingForm.addEventListener('submit', handleBookingSubmit);
