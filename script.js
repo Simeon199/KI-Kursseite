@@ -1,233 +1,177 @@
-document.querySelectorAll('.faq-q').forEach(function(q) {
-    q.addEventListener('click', function() {
-      const item = q.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
-      if (!wasOpen) item.classList.add('open');
-    });
+// ==========================================
+// FAQ ACCORDION
+// ==========================================
+document.querySelectorAll('.faq-q').forEach(function(question) {
+  question.addEventListener('click', function() {
+    const item = question.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
   });
+});
 
-  // ═══════════════════════════════════════════════════════
-  const EMAILJS_PUBLIC_KEY          = 'YOUR_PUBLIC_KEY';
-  const EMAILJS_SERVICE_ID          = 'YOUR_SERVICE_ID';
-  const EMAILJS_TEMPLATE_ID         = 'YOUR_TEMPLATE_ID';          // Benachrichtigung an service@rein-campus.de
-  const EMAILJS_CONFIRM_TEMPLATE_ID = 'YOUR_CONFIRM_TEMPLATE_ID';  // Bestaetigung an Kunden
-  // ═══════════════════════════════════════════════════════
-
-  // emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-  function kinderfelderGenerieren(anzahl) {
-    const container = document.getElementById('kinder-felder');
-    container.innerHTML = '';
-    for (let i = 1; i <= anzahl; i++) {
-      const block = document.createElement('div');
-      block.className = 'kind-block';
-      block.innerHTML =
-        '<div class="kind-label">Kind ' + i + '</div>' +
-        '<div class="form-row">' +
-          '<div class="form-group">' +
-            '<label for="vorname-kind-' + i + '">Vorname <span class="req">*</span></label>' +
-            '<input type="text" id="vorname-kind-' + i + '" name="vorname-kind-' + i + '" placeholder="Vorname des Kindes" required' +
-                   ' maxlength="60" pattern="[A-Za-zÄÖÜäöüß\\-\\s]{2,60}"' +
-                   ' title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<label for="nachname-kind-' + i + '">Nachname <span class="req">*</span></label>' +
-            '<input type="text" id="nachname-kind-' + i + '" name="nachname-kind-' + i + '" placeholder="Nachname des Kindes" required' +
-                   ' maxlength="60" pattern="[A-Za-zÄÖÜäöüß\\-\\s]{2,60}"' +
-                   ' title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">' +
-          '</div>' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<div class="form-group">' +
-            '<label for="klasse-kind-' + i + '">Klasse <span class="req">*</span></label>' +
-            '<select id="klasse-kind-' + i + '" name="klasse-kind-' + i + '" required>' +
-              '<option value="" disabled selected>Bitte waehlen</option>' +
-              '<option value="Klasse 7">Klasse 7</option>' +
-              '<option value="Klasse 8">Klasse 8</option>' +
-              '<option value="Klasse 9">Klasse 9</option>' +
-              '<option value="Klasse 10">Klasse 10</option>' +
-            '</select>' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<label for="schulart-kind-' + i + '">Schulart <span class="req">*</span></label>' +
-            '<select id="schulart-kind-' + i + '" name="schulart-kind-' + i + '" required>' +
-              '<option value="" disabled selected>Bitte waehlen</option>' +
-              '<option value="Werkrealschule">Werkrealschule</option>' +
-              '<option value="Realschule">Realschule</option>' +
-              '<option value="Gymnasium">Gymnasium</option>' +
-              '<option value="Gemeinschaftsschule">Gemeinschaftsschule</option>' +
-            '</select>' +
-          '</div>' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label for="schule-kind-' + i + '">Schule / Ort</label>' +
-          '<input type="text" id="schule-kind-' + i + '" name="schule-kind-' + i + '" placeholder="z.B. Hans-Thoma-Realschule Kenzingen" maxlength="80">' +
-        '</div>';
-      container.appendChild(block);
-    }
-  }
-
-  document.getElementById('kinder-anzahl').addEventListener('change', function() {
-    kinderfelderGenerieren(parseInt(this.value));
-  });
-
-  // Grundlegendes Escaping, falls Werte irgendwo als HTML interpretiert werden
-  function sicherFuerText(wert) {
-    return String(wert == null ? '' : wert)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .trim();
-  }
+// emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 // ==========================================
-// KONFIGURATION (Zentral an einer Stelle)
+// UTILITIES
 // ==========================================
-const CONFIG = {
-  n8nWebhookUrl: 'https://n8n.meine-subdomain.de/webhook/dein-neuer-kurs-pfad',
-  digistoreBaseUrl: 'https://www.checkout-ds24.com/product/705362',
-  terminMap: {
-    'august-1': '03. – 08. August (vormittags)',
-    'august-2': '10. – 14. August (vormittags)',
-    'beide':    'Beide Termine möglich'
-  }
-};
+function escapeText(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .trim();
+}
 
 // ==========================================
-// FORMULARSCHUTZ & VALIDIERUNG
+// FORM PROTECTION & VALIDATION
 // ==========================================
-function istSpam() {
+function isSpam() {
   const honeypot = document.getElementById('website');
   return !!(honeypot && honeypot.value.trim() !== '');
 }
 
-function setzeButtonLadestatus(button, wirdGeladen, originalText = '') {
-  button.disabled = wirdGeladen;
-  button.textContent = wirdGeladen ? 'Wird zur Zahlung weitergeleitet …' : originalText;
+function setButtonLoadingState(button, isLoading, originalText = '') {
+  button.disabled = isLoading;
+  button.textContent = isLoading ? 'Wird zur Zahlung weitergeleitet …' : originalText;
 }
 
-function markiereEingabeUngueltig(element) {
+function markInputInvalid(element) {
   element.style.borderColor = '#E07B54';
   return false;
 }
 
-function validierePflichtfelder(form) {
-  let istValid = true;
+function validateRequiredFields(form) {
+  let isValid = true;
   form.querySelectorAll('[required]').forEach(el => {
     el.style.borderColor = '';
-    const istLeer = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
-    const istUngueltig = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
-    if (istLeer || istUngueltig) {
-      istValid = markiereEingabeUngueltig(el);
+    const isEmpty   = (el.type === 'checkbox' && !el.checked) || (el.type !== 'checkbox' && !el.value.trim());
+    const isInvalid = el.type !== 'checkbox' && el.value.trim() && !el.checkValidity();
+    if (isEmpty || isInvalid) {
+      isValid = markInputInvalid(el);
     }
   });
-  return istValid;
+  return isValid;
 }
 
-function fokussiereErstenFehler(form) {
-  const ersterFehler = form.querySelector('[required][style*="E07B54"]');
-  if (ersterFehler) {
-    ersterFehler.scrollIntoView({ behavior: 'smooth', block: 'center' });
+function focusFirstError(form) {
+  const firstError = form.querySelector('[required][style*="E07B54"]');
+  if (firstError) {
+    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
 
 // ==========================================
-// DATENAUFBEREITUNG (KINDER & FORMULAR)
+// DATA EXTRACTION
 // ==========================================
-function extrahiereKindDaten(index) {
-  const vorname  = document.getElementById(`vorname-kind-${index}`);
-  const nachname = document.getElementById(`nachname-kind-${index}`);
-  const klasse   = document.getElementById(`klasse-kind-${index}`);
-  const schulart = document.getElementById(`schulart-kind-${index}`);
-  const schule   = document.getElementById(`schule-kind-${index}`);
-  
+function extractChildData(index) {
+  const get = id => {
+    const el = document.getElementById(id);
+    if (!el) throw new Error(`DOM element missing: #${id}`);
+    return el;
+  };
   return {
-    vorname:  vorname  ? sicherFuerText(vorname.value)  : '–',
-    nachname: nachname ? sicherFuerText(nachname.value) : '–',
-    klasse:   klasse   ? sicherFuerText(klasse.value)    : '–',
-    schulart: schulart ? sicherFuerText(schulart.value)  : '–',
-    schule:   schule   ? (sicherFuerText(schule.value) || '–') : '–',
+    firstName:  escapeText(get(`vorname-kind-${index}`).value),
+    lastName:   escapeText(get(`nachname-kind-${index}`).value),
+    grade:      escapeText(get(`klasse-kind-${index}`).value),
+    schoolType: escapeText(get(`schulart-kind-${index}`).value),
+    schoolName: escapeText(get(`schule-kind-${index}`).value) || '–',
   };
 }
 
-function generiereKinderText(anzahl) {
-  const details = Array.from({ length: anzahl }, (_, i) => extrahiereKindDaten(i + 1));
-  return details.map((k, idx) => {
-    const schuleZusatz = k.schule !== '–' ? ` (${k.schule})` : '';
-    return `Kind ${idx + 1}: ${k.vorname} ${k.nachname} – ${k.klasse}, ${k.schulart}${schuleZusatz}`;
+function buildChildrenText(count) {
+  const children = Array.from({ length: count }, (_, i) => extractChildData(i + 1));
+  return children.map((child, idx) => {
+    const schoolSuffix = child.schoolName !== '–' ? ` (${child.schoolName})` : '';
+    return `Kind ${idx + 1}: ${child.firstName} ${child.lastName} – ${child.grade}, ${child.schoolType}${schoolSuffix}`;
   }).join(' | ');
 }
 
-function sammleFormularDaten(form) {
-  const kinderAnzahl = parseInt(document.getElementById('kinder-anzahl').value) || 1;
-  const termin = document.getElementById('wunschtermin').value;
+function collectFormData(childCount) {
+  const appointmentKey = document.getElementById('wunschtermin').value;
   return {
-    zeitpunkt:      new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' }),
-    vorname:        sicherFuerText(document.getElementById('vorname').value),
-    nachname:       sicherFuerText(document.getElementById('nachname').value),
-    email:          document.getElementById('email').value.trim().toLowerCase(),
-    telefon:        sicherFuerText(document.getElementById('telefon').value) || '–',
-    adresse:        sicherFuerText(document.getElementById('adresse').value),
-    kinder:         kinderAnzahl,
-    kinder_text:    generiereKinderText(kinderAnzahl),
-    termin:         termin,
-    termin_text:    CONFIG.terminMap[termin] || '–',
-    nachricht:      sicherFuerText(document.getElementById('nachricht').value) || '–',
-    zahlungsstatus: 'Wartet auf Zahlung'
+    timestamp:         new Date().toLocaleString('de-DE', { dateStyle: 'full', timeStyle: 'short' }),
+    firstName:         escapeText(document.getElementById('vorname').value),
+    lastName:          escapeText(document.getElementById('nachname').value),
+    email:             document.getElementById('email').value.trim().toLowerCase(),
+    phone:             escapeText(document.getElementById('telefon').value) || '–',
+    address:           escapeText(document.getElementById('adresse').value),
+    childCount:        childCount,
+    childrenText:      buildChildrenText(childCount),
+    appointmentKey:    appointmentKey,
+    appointmentLabel:  CONFIG.appointmentLabels[appointmentKey] || '–',
+    message:           escapeText(document.getElementById('nachricht').value) || '–',
+    paymentStatus:     'Wartet auf Zahlung'
   };
 }
 
 // ==========================================
-// SCHNITTSTELLEN-INTERAKTIONEN (API & REDIRECT)
+// API & REDIRECT
 // ==========================================
-function sendeAnN8n(daten) {
+function sendToN8n(data) {
   return fetch(CONFIG.n8nWebhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(daten)
+    body: JSON.stringify(data)
   })
   .then(res => {
-    if (!res.ok) throw new Error('n8n Übertragung fehlgeschlagen');
+    if (!res.ok) throw new Error('n8n transmission failed');
     console.log('✅ Daten erfolgreich an n8n übertragen');
   })
   .catch(err => console.error('❌ Fehler:', err));
 }
 
-function leiteZuDigistore(daten) {
-  const urlParams = new URLSearchParams({
-    email: daten.email,
-    first_name: daten.vorname,
-    last_name: daten.nachname
+function redirectToDigistore(data) {
+  const params = new URLSearchParams({
+    email:      data.email,
+    first_name: data.firstName,
+    last_name:  data.lastName
   });
-  window.location.href = `${CONFIG.digistoreBaseUrl}?${urlParams.toString()}`;
+  window.location.href = `${CONFIG.digistoreBaseUrl}?${params.toString()}`;
 }
 
 // ==========================================
-// HAUPT-EVENT-LISTENER
+// MAIN SUBMIT HANDLER
 // ==========================================
-document.getElementById('booking-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+  bookingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-  if (istSpam()) return console.warn('Spam-Versuch erkannt');
+    if (isSpam()) return console.warn('Spam-Versuch erkannt');
 
-  const submitBtn = this.querySelector('.btn-submit');
-  const originalBtnText = submitBtn.textContent;
-  
-  if (submitBtn.disabled) return;
-  setzeButtonLadestatus(submitBtn, true);
+    const submitBtn       = this.querySelector('.btn-submit');
+    const originalBtnText = submitBtn.textContent;
 
-  if (!validierePflichtfelder(this)) {
-    fokussiereErstenFehler(this);
-    setzeButtonLadestatus(submitBtn, false, originalBtnText);
-    return;
-  }
+    if (submitBtn.disabled) return;
+    setButtonLoadingState(submitBtn, true);
 
-  const daten = sammleFormularDaten(this);
-  leiteZuDigistore(daten);
+    // Guarantee fields exist and count matches the select value
+    const childCount = ensureChildFields();
+    if (!childCount) {
+      markInputInvalid(document.getElementById('kinder-anzahl'));
+      setButtonLoadingState(submitBtn, false, originalBtnText);
+      return;
+    }
 
-  // sendeAnN8n(daten).then(() => {
-  //   leiteZuDigistore(daten);
-  // });
-});
+    if (!validateRequiredFields(this)) {
+      focusFirstError(this);
+      setButtonLoadingState(submitBtn, false, originalBtnText);
+      return;
+    }
+
+    let data;
+    try {
+      data = collectFormData(childCount);
+    } catch (err) {
+      console.error('❌ Fehler beim Einlesen der Kinderdaten:', err);
+      setButtonLoadingState(submitBtn, false, originalBtnText);
+      return;
+    }
+
+    sendToN8n(data).then(() => {
+      redirectToDigistore(data);
+    });
+  });
+}
 
 
   // document.getElementById('booking-form').addEventListener('submit', function(e) {
