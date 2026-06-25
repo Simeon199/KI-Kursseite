@@ -3,6 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+  Content-Security-Policy (CSP): Begrenzt, woher Ressourcen geladen und wohin
+  Daten gesendet werden dürfen. Das ist die wirksamste Bremse gegen XSS, weil
+  selbst eingeschleustes <script> nur von 'self' ausgeführt würde.
+  - script-src 'self'        : ausschließlich eigene JS-Dateien (config/render/script)
+  - style-src  'unsafe-inline': nötig, weil die Seite einzelne inline style=""-Attribute nutzt
+  - img-src 'self' data:     : eigene Bilder + die eingebetteten Base64-PNGs
+  - connect-src              : fetch() darf nur an den eigenen Origin und den n8n-Webhook
+  Hinweis: frame-ancestors / X-Frame-Options (Clickjacking-Schutz) wirken NUR als
+  HTTP-Header, nicht im <meta> – diese bitte zusätzlich auf dem Server/Hosting setzen.
+-->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               script-src 'self';
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data:;
+               font-src 'self' data:;
+               connect-src 'self' https://n8n.lernenlernenleichtgemacht.de;
+               form-action 'self';
+               base-uri 'self';
+               object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
 <title>Anmeldung KI-Führerschein | Rein Campus</title>
 <link rel="stylesheet" href="booking.css">
 </head>
@@ -115,6 +139,7 @@
             <label for="email">E-Mail-Adresse <span class="req">*</span></label>
             <input type="email" id="email" name="email" placeholder="maria@muster.de" required
                    maxlength="100" autocomplete="email"
+                   inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"
                    pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
                    title="Bitte eine gültige E-Mail-Adresse eingeben">
           </div>
@@ -122,6 +147,7 @@
             <label for="telefon">Telefon</label>
             <input type="tel" id="telefon" name="telefon" placeholder="07644 …"
                    maxlength="20" autocomplete="tel"
+                   inputmode="tel"
                    pattern="[0-9+\/\-\s()]{0,20}"
                    title="Bitte nur Ziffern und + / - ( ) verwenden">
           </div>
@@ -171,11 +197,11 @@
         </div>
 
         <div class="privacy-note">
-          Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt und nicht an Dritte weitergegeben. Mehr unter <a href="https://rein-campus.de/privacy-policy/" target="_blank">Datenschutzerklärung</a>.
+          Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt und nicht an Dritte weitergegeben. Mehr unter <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a>.
         </div>
         <div class="checkbox-row">
           <input type="checkbox" id="datenschutz" name="datenschutz" required>
-          <label for="datenschutz">Ich habe die <a href="https://rein-campus.de/privacy-policy/" target="_blank">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung dieser Anfrage zu. <span class="req">*</span></label>
+          <label for="datenschutz">Ich habe die <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung dieser Anfrage zu. <span class="req">*</span></label>
         </div>
 
         <button type="submit" class="btn-submit">Platz reservieren &rarr;</button>
@@ -192,17 +218,9 @@
 
 <footer>
   Rein Campus · Hauptstraße 12 · 79341 Kenzingen<br>
-  <a href="tel:+4976449294280">07644 9294280</a> · <a href="mailto:info@rein-campus.de">info@rein-campus.de</a> · <a href="https://rein-campus.de" target="_blank">www.rein-campus.de</a><br><br>
+  <a href="tel:+4976449294280">07644 9294280</a> · <a href="mailto:info@rein-campus.de">info@rein-campus.de</a> · <a href="https://rein-campus.de" target="_blank" rel="noopener noreferrer">www.rein-campus.de</a><br><br>
   <a href="https://rein-campus.de/impressum/">Impressum</a> &nbsp;·&nbsp; <a href="https://rein-campus.de/privacy-policy/">Datenschutz</a>
 </footer>
-
-<!-- EmailJS: E-Mail-Versand direkt aus dem Browser -->
-<!-- EINRICHTUNG: Kostenloser Account auf emailjs.com erstellen (200 Mails/Monat gratis) -->
-<!-- 1) Einloggen -> Email Services -> Gmail/SMTP verbinden -> Service ID notieren         -->
-<!-- 2) Email Templates -> zwei Templates erstellen (Benachrichtigung + Bestaetigung)      -->
-<!-- 3) Account -> API Keys -> Public Key notieren                                        -->
-<!-- Dann unten die YOUR_... Platzhalter ersetzen                                          -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script> -->
 
 <script src="../config.js"></script>
 <script src="../render.js"></script>
