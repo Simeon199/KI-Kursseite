@@ -1,0 +1,10 @@
+# Claude Code – persönliche Einstellungen (projektlokal, nicht für das Team)
+.claude/settings.json
+
+# Claude Code – Speicherverzeichnis (wird automatisch generiert)
+.claude/memory/
+
+# Logs (von Claude Code genutzt, kein Quellcode)
+logs/
+
+CLAUDE.md
