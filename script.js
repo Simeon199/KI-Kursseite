@@ -66,8 +66,13 @@ function escapeText(value) {
 /** Minimale plausible Ausfuelldauer (ms). Schnellere Submits gelten als Bot. */
 const MIN_FILL_TIME_MS = 2500;
 
-/** Zeitstempel beim Laden der Seite - Basis fuer die zeitbasierte Bot-Falle. */
-const formRenderTime = Date.now();
+/**
+ * Zeitstempel der Bot-Falle - Basis fuer die zeitbasierte Pruefung in {@link isSpam}.
+ * Wird beim Oeffnen des Anmelde-Popups in {@link openBookingModal} zurueckgesetzt,
+ * da das Formular sonst schon "alt" waere, sobald jemand die Landingpage laenger
+ * gelesen hat, bevor das Popup geoeffnet wird.
+ */
+let formRenderTime = Date.now();
 
 /**
  * Checks whether a submission looks automated. Two independent signals:
@@ -358,3 +363,53 @@ function handleBookingSubmit(e) {
 
 const bookingForm = document.getElementById('booking-form');
 if (bookingForm) bookingForm.addEventListener('submit', handleBookingSubmit);
+
+// ==========================================
+// ANMELDE-POPUP (BOOKING MODAL)
+// ==========================================
+
+/**
+ * Opens the booking modal, locks page scrolling behind it, and resets the
+ * spam time-trap so it measures fill time from when the form actually
+ * becomes visible rather than from the initial page load.
+ */
+
+function openBookingModal() {
+  const modal = document.getElementById('booking-modal');
+  if (!modal) return;
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  formRenderTime = Date.now();
+}
+
+/**
+ * Closes the booking modal and restores page scrolling.
+ */
+
+function closeBookingModal() {
+  const modal = document.getElementById('booking-modal');
+  if (!modal) return;
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('[data-open-booking]').forEach(function (trigger) {
+  trigger.addEventListener('click', function (e) {
+    e.preventDefault();
+    openBookingModal();
+  });
+});
+
+const modalCloseBtn = document.getElementById('modal-close-btn');
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeBookingModal);
+
+const bookingModal = document.getElementById('booking-modal');
+if (bookingModal) {
+  bookingModal.addEventListener('click', function (e) {
+    if (e.target === bookingModal) closeBookingModal();
+  });
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeBookingModal();
+});
