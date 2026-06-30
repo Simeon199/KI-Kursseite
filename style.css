@@ -835,6 +835,16 @@ textarea {
 .btn-submit:active { transform: scale(.98); }
 
 
+/* ── Submit error ─────────────────────────────────────────────────────────── */
+
+.submit-error {
+  display:    none;
+  color:      var(--orange);
+  font-size:  .88rem;
+  margin:     0 0 12px;
+}
+
+
 /* ── Success message ─────────────────────────────────────────────────────── */
 
 .success-msg {

@@ -98,7 +98,7 @@ function isSpam() {
 
 function setButtonLoadingState(button, isLoading, originalText = '') {
   button.disabled    = isLoading;
-  button.textContent = isLoading ? 'Wird zur Zahlung weitergeleitet …' : originalText;
+  button.textContent = isLoading ? 'Wird gesendet …' : originalText;
 }
 
 /**
@@ -222,8 +222,10 @@ function buildChildrenText(children) {
  * @property {string} childrenText     - Pipe-separated child summaries.
  * @property {string} appointmentKey   - Raw select value for the desired appointment.
  * @property {string} appointmentLabel - Human-readable appointment label.
- * @property {string} message          - Optional message, or "–".
- * @property {string} paymentStatus    - Initial payment status string.
+ * @property {string}  message          - Optional message, or "–".
+ * @property {string}  paymentStatus    - Initial invoice status, shown in SeaTable for the manual billing workflow.
+ * @property {boolean} consent          - Whether the privacy-policy checkbox was ticked; sent for a server-side GDPR audit trail.
+ * @property {string}  website          - Honeypot value; empty for genuine users, lets the server independently re-check for spam.
  */
 
 /**
@@ -248,19 +250,25 @@ function collectFormData(childCount) {
     appointmentKey,
     appointmentLabel: CONFIG.appointmentLabels[appointmentKey] || '–',
     message:          escapeText(document.getElementById('nachricht').value) || '–',
-    paymentStatus:    'Wartet auf Zahlung'
+    paymentStatus:    'Rechnung ausstehend',
+    consent:          document.getElementById('datenschutz').checked,
+    website:          document.getElementById('website').value.trim()
   };
 }
 
 // ==========================================
-// API & REDIRECT
+// API
 // ==========================================
 
 /**
- * Sends the collected form data to the configured n8n webhook.
- * Errors are logged to the console and do not block the redirect.
+ * Sends the collected form data to the configured n8n webhook, which stores it
+ * in SeaTable and notifies the course creators so they can prepare a manual
+ * invoice. Throws on transport or server failure so the caller can react -
+ * there is no redirect to a payment provider anymore, so this request is the
+ * only confirmation a submission actually arrived.
  * @param {FormData} data - The form data to transmit.
  * @returns {Promise<void>}
+ * @throws {Error} When the request fails or the server responds with a non-OK status.
  */
 
 function sendToN8n(data) {
@@ -271,36 +279,7 @@ function sendToN8n(data) {
   })
   .then(res => {
     if (!res.ok) throw new Error('n8n transmission failed');
-    console.log('✅ Daten erfolgreich an n8n übertragen');
-  })
-  .catch(err => console.error('❌ Fehler:', err));
-}
-
-/**
- * Redirects the browser to the Digistore24 checkout page, pre-filling name,
- * e-mail and phone via query parameters. URLSearchParams URL-encodes every
- * value, and the target host is the fixed CONFIG.digistoreBaseUrl, so no
- * open-redirect is possible. The "–" placeholder for an empty phone is
- * converted back to an empty string so Digistore never receives a literal dash.
- * @param {FormData} data - The form data used to build the redirect URL.
- */
-
-function redirectToDigistore(data) {
-  // Digistore24 erwartet die Menge produktspezifisch als quantity_<Produkt-ID>,
-  // NICHT als generisches "quantity" (das wird ignoriert und der Preis bleibt 1x).
-  // Die Produkt-ID stammt aus der Checkout-URL (.../product/705362) und ist damit
-  // die einzige Quelle der Wahrheit - so kann sie nicht von der Basis-URL abweichen.
-  // Voraussetzung im Digistore-Produkt: "Käufer kann Menge ändern" muss aktiv sein.
-  const productId = (CONFIG.digistoreBaseUrl.match(/\/product\/(\d+)/) || [])[1] || '';
-  const params = new URLSearchParams({
-    email:                     data.email,
-    first_name:                data.firstName,
-    last_name:                 data.lastName,
-    phone_no:                  data.phone === '–' ? '' : data.phone,
-    [`quantity_${productId}`]: data.childCount,
-    quantity_locked:           1
   });
-  window.location.href = `${CONFIG.digistoreBaseUrl}?${params.toString()}`;
 }
 
 // ==========================================
@@ -318,8 +297,46 @@ function resetButton(button, originalText) {
 }
 
 /**
- * Validates child count, form fields, and collected data; then triggers
- * the n8n webhook and Digistore redirect on success.
+ * Hides the booking form and reveals the success message. There is no
+ * payment redirect anymore, so this is the final state of a successful submission.
+ */
+
+function showSuccess() {
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  const dialog = document.querySelector('.modal-dialog');
+  if (dialog) dialog.scrollTop = 0;
+}
+
+/**
+ * Clears any previously shown submit-error message.
+ */
+
+function clearSubmitError() {
+  const errorEl = document.getElementById('submit-error');
+  if (errorEl) errorEl.style.display = 'none';
+}
+
+/**
+ * Re-enables the submit button and shows a user-facing error message after
+ * a failed webhook transmission, since no redirect exists anymore to signal
+ * success or failure implicitly.
+ * @param {HTMLButtonElement} submitBtn    - The submit button element.
+ * @param {string}            originalText - Original button label to restore.
+ */
+
+function showSubmitError(submitBtn, originalText) {
+  resetButton(submitBtn, originalText);
+  const errorEl = document.getElementById('submit-error');
+  if (errorEl) {
+    errorEl.textContent = 'Leider gab es ein Problem beim Senden Ihrer Anmeldung. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.';
+    errorEl.style.display = 'block';
+  }
+}
+
+/**
+ * Validates child count, form fields, and collected data; then sends the
+ * submission to n8n and shows the success or error state accordingly.
  * @param {HTMLFormElement}   form         - The booking form element.
  * @param {HTMLButtonElement} submitBtn    - The submit button element.
  * @param {string}            originalText - Original button label to restore on error.
@@ -342,7 +359,12 @@ function processSubmission(form, submitBtn, originalText) {
     console.error('❌ Fehler beim Einlesen der Kinderdaten:', err);
     return resetButton(submitBtn, originalText);
   }
-  sendToN8n(data).then(() => redirectToDigistore(data));
+  sendToN8n(data)
+    .then(showSuccess)
+    .catch(err => {
+      console.error('❌ Fehler beim Senden der Anmeldung:', err);
+      showSubmitError(submitBtn, originalText);
+    });
 }
 
 /**
@@ -357,6 +379,7 @@ function handleBookingSubmit(e) {
   const submitBtn       = this.querySelector('.btn-submit');
   const originalBtnText = submitBtn.textContent;
   if (submitBtn.disabled) return;
+  clearSubmitError();
   setButtonLoadingState(submitBtn, true);
   processSubmission(this, submitBtn, originalBtnText);
 }
