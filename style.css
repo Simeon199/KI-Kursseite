@@ -7,6 +7,10 @@
   --ink:  #232323;
   --muted: #6B6B66;
   --card: #FFFFFF;
+  --gradient-dark:
+    radial-gradient(900px circle at 85% 12%, rgba(58,171,170,.28), transparent 60%),
+    radial-gradient(700px circle at 8% 92%, rgba(224,123,84,.18), transparent 55%),
+    linear-gradient(135deg, #1B3A3A 0%, #0F2A2A 100%);
 }
 
 * {
@@ -38,8 +42,8 @@ header {
   position:      sticky;
   top:           0;
   z-index:       100;
-  background:    #fff;
-  border-bottom: 1px solid #eee;
+  background:    #1B3A3A;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 .header-inner {
@@ -49,6 +53,7 @@ header {
   display:         flex;
   justify-content: space-between;
   align-items:     center;
+  gap:             24px;
 }
 
 .logo-group {
@@ -63,9 +68,31 @@ header {
   flex-shrink: 0;
 }
 
+.logo-svg-real path { fill: #fff; }
+
+.header-nav {
+  display: flex;
+  gap:     28px;
+  flex:    1 1 auto;
+}
+
+.header-nav a {
+  color:       #D8E4E2;
+  font-weight: 600;
+  font-size:   .88rem;
+  padding:     4px 0;
+  border-bottom: 2px solid transparent;
+  transition:  color .15s, border-color .15s;
+}
+
+.header-nav a:hover {
+  color:         #fff;
+  border-color:  var(--orange);
+}
+
 .header-contact {
   font-size:  .82rem;
-  color:      var(--muted);
+  color:      #D8E4E2;
   text-align: right;
 }
 
@@ -78,7 +105,7 @@ header {
   background:    linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
   color:         #fff;
   padding:       10px 22px;
-  border-radius: 999px;
+  border-radius: 10px;
   font-weight:   700;
   font-size:     .88rem;
   white-space:   nowrap;
@@ -95,10 +122,7 @@ header {
 
 .hero {
   position:   relative;
-  background:
-    radial-gradient(900px circle at 85% 12%, rgba(58,171,170,.28), transparent 60%),
-    radial-gradient(700px circle at 8% 92%, rgba(224,123,84,.18), transparent 55%),
-    linear-gradient(135deg, #1B3A3A 0%, #0F2A2A 100%);
+  background: var(--gradient-dark);
   color:      #fff;
   min-height: 100vh;
   min-height: 100svh;
@@ -252,6 +276,8 @@ header {
 /* ── Section generic ─────────────────────────────────────────────────────── */
 
 section { padding: 72px 0; }
+
+section[id] { scroll-margin-top: 90px; }
 
 .section-label {
   color:          var(--orange);
@@ -422,7 +448,8 @@ section { padding: 72px 0; }
 /* ── Pricing ─────────────────────────────────────────────────────────────── */
 
 .price-section {
-  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dk) 100%);
+  position:   relative;
+  background: var(--gradient-dark);
   color:      #fff;
 }
 
@@ -766,6 +793,10 @@ textarea {
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
+@media (min-width: 1024px) {
+  .modal-dialog { max-width: 720px; }
+}
+
 @media (max-width: 880px) {
   .hero                    { padding: 80px 0 84px; }
   .hero-inner               { flex-direction: column; }
@@ -776,6 +807,7 @@ textarea {
   .problem-grid, .why-grid  { grid-template-columns: 1fr; }
   .day-card                 { grid-template-columns: 48px 1fr; padding: 20px; }
   .header-contact           { display: none; }
+  .header-nav               { display: none; }
 }
 
 @media (max-width: 480px) {
