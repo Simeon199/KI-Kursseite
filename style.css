@@ -180,45 +180,15 @@ header {
 .hero-inner > div:first-child { flex: 1.2 1 420px; }
 .hero-image-wrap              { flex: 0.8 1 280px; }
 
-.hero-scroll-cue {
-  position:        absolute;
-  left:            50%;
-  bottom:          28px;
-  transform:       translateX(-50%);
-  width:           42px;
-  height:          42px;
-  border-radius:   50%;
-  border:          1.5px solid rgba(255,255,255,.35);
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  color:           #fff;
-  font-size:       1.4rem;
-  line-height:     1;
-  animation:       hero-scroll-bounce 2s ease-in-out infinite;
-  transition:      border-color .15s, background .15s;
-}
-
-.hero-scroll-cue:hover {
-  border-color: var(--teal);
-  background:   rgba(255,255,255,.08);
-}
-
-@keyframes hero-scroll-bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(8px); }
-}
-
 .hero-eyebrow {
   display:        inline-block;
   background:     rgba(224,123,84,.18);
   color:          var(--orange);
-  font-size:      .78rem;
-  font-weight:    700;
+  font-weight:    600;
   letter-spacing: .6px;
   text-transform: uppercase;
   padding:        6px 14px;
-  border-radius:  999px;
+  border-radius:  10px;
   margin-bottom:  18px;
 }
 
@@ -536,10 +506,9 @@ section[id] { scroll-margin-top: 90px; }
 .price-card .badge {
   background:    var(--orange);
   color:         #fff;
-  font-size:     .78rem;
-  font-weight:   700;
+  font-weight:   600;
   padding:       5px 14px;
-  border-radius: 999px;
+  border-radius: 10px;
   display:       inline-block;
   margin-bottom: 16px;
 }
@@ -892,7 +861,6 @@ textarea {
 @media (max-width: 480px) {
   .hero            { padding: 72px 0 76px; }
   .hero-image-wrap img { max-width: 100%; }
-  .hero-scroll-cue { width: 36px; height: 36px; bottom: 18px; }
   .modal-overlay   { padding: 12px; }
   #form-wrap       { padding: 20px; }
   .form-header     { padding: 16px 20px; }
