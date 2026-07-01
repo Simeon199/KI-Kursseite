@@ -259,18 +259,18 @@ textarea {
 }
 
 
-/* ── Large screens: two-column, no overlay scrollbar ────────────────────── */
+/* ── Large screens: two-column layout ───────────────────────────────────── */
 
 @media (min-width: 800px) {
   .modal-overlay {
-    overflow:    hidden;
-    align-items: center;
+    overflow-y:  auto;
+    align-items: flex-start;
     padding:     24px;
   }
 
   .modal-dialog {
     max-width: 960px;
-    margin:    0 auto;
+    margin:    auto; /* distributes remaining space → centers when dialog fits viewport */
   }
 
   .form-cols {
