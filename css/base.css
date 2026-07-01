@@ -24,6 +24,7 @@ body {
   background:  var(--bg);
   color:       var(--ink);
   line-height: 1.6;
+  overflow-x:  hidden;
 }
 
 a   { text-decoration: none; }
@@ -57,7 +58,28 @@ html {
 .modal-overlay::-webkit-scrollbar-thumb  { border-color: transparent; }
 
 .wrap {
-  max-width: 1140px;
-  margin:  0 auto;
-  padding: 0 24px;
+  width:     90%;
+  max-width: 1920px;
+  margin:    0 auto;
+}
+
+
+/* ── Scroll animations ───────────────────────────────────────────────────── */
+
+.reveal-left {
+  opacity:    0;
+  transform:  translateX(-60px);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+
+.reveal-right {
+  opacity:    0;
+  transform:  translateX(60px);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+
+.reveal-left.active,
+.reveal-right.active {
+  opacity:   1;
+  transform: translateX(0);
 }

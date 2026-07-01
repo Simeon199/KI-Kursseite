@@ -5,16 +5,58 @@
 }
 
 @media (max-width: 880px) {
-  .hero                              { padding: 80px 0 84px; }
-  .hero-inner                        { flex-direction: column; }
+  /* Hero */
+  .hero                    { padding: 80px 0 84px; }
+  .hero-inner              { flex-direction: column; }
   .hero-inner > div:first-child,
-  .hero-image-wrap                   { flex: 1 1 auto; }
-  .hero-image-wrap                   { order: -1; width: 100%; }
-  .hero-image-wrap img               { max-width: 420px; }
-  .hero h1                           { font-size: 1.9rem; }
-  .problem-grid, .why-grid           { grid-template-columns: 1fr; }
-  .day-card                          { grid-template-columns: 48px 1fr; padding: 20px; }
-  .header-nav                        { display: none; }
+  .hero-image-wrap         { flex: 1 1 auto; }
+  .hero-image-wrap         { order: -1; width: 100%; }
+  .hero-image-wrap img     { max-width: 420px; }
+  .hero h1                 { font-size: 1.9rem; }
+
+  /* Sections */
+  .problem-grid, .why-grid { grid-template-columns: 1fr; }
+  .day-card                { grid-template-columns: 48px 1fr; padding: 20px; }
+
+  /* Header: show hamburger, hide desktop nav + CTA */
+  .hamburger               { display: flex; }
+  .header-cta              { display: none; }
+  .header-nav {
+    display:        none;
+    position:       absolute;
+    top:            100%;
+    left:           0;
+    right:          0;
+    background:     #1B3A3A;
+    flex-direction: column;
+    padding:        8px 5%;
+    gap:            0;
+    border-top:     1px solid rgba(255,255,255,.1);
+    box-shadow:     0 8px 24px rgba(0,0,0,.3);
+  }
+
+  header.nav-open .header-nav { display: flex; }
+
+  .header-nav a {
+    padding:       14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    font-size:     1rem;
+  }
+
+  .header-nav a:last-child { border-bottom: none; }
+
+  /* CTA inside mobile nav */
+  .header-nav .mobile-cta {
+    display:         block;
+    margin-top:      12px;
+    margin-bottom:   8px;
+    background:      linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
+    color:           #fff;
+    padding:         12px 22px;
+    border-radius:   10px;
+    font-weight:     700;
+    text-align:      center;
+  }
 }
 
 @media (max-width: 480px) {
