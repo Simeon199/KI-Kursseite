@@ -7,11 +7,11 @@
 @media (max-width: 880px) {
   /* Hero */
   .hero                    { padding: 80px 0 84px; }
-  .hero-inner              { flex-direction: column; }
+  .hero-inner              { flex-direction: column-reverse; }
   .hero-inner > div:first-child,
   .hero-image-wrap         { flex: 1 1 auto; }
   .hero-image-wrap         { order: -1; width: 100%; }
-  .hero-image-wrap img     { max-width: 420px; }
+  .hero-image-wrap img     { max-width: 90%; }
   .hero h1                 { font-size: 1.9rem; }
 
   /* Sections */

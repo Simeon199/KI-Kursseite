@@ -124,8 +124,10 @@
 
 .hero-image-wrap img {
   width:         100%;
-  height:        auto;
+  max-width:     520px;
+  aspect-ratio:  4 / 3;
+  object-fit:    cover;
   border-radius: 18px;
   box-shadow:    0 24px 60px rgba(0,0,0,.4);
-  max-width:     320px;
+  display:       block;
 }
