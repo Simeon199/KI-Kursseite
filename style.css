@@ -110,7 +110,6 @@ header {
   position:    relative;
   color:       #D8E4E2;
   font-weight: 600;
-  font-size:   .88rem;
   padding:     4px 0;
   transition:  color .15s;
 }
@@ -295,7 +294,6 @@ section[id] { scroll-margin-top: 90px; }
 .section-label {
   color:          var(--orange);
   font-weight:    700;
-  font-size:      .82rem;
   text-transform: uppercase;
   letter-spacing: .8px;
   margin-bottom:  10px;
@@ -613,12 +611,14 @@ footer {
   color:       #aebebd;
   text-align:  center;
   padding:     28px 24px;
-  font-size:   .82rem;
   border-top:  1px solid rgba(255,255,255,.08);
 }
 
 footer a { color: var(--teal); }
 
+footer a:hover {
+  font-weight: bold;
+}
 
 /* ── Anmelde-Popup ───────────────────────────────────────────────────────── */
 
