@@ -66,6 +66,9 @@ header {
 
 .header-nav a:hover::after { transform: scaleX(1); }
 
+/* Hidden on desktop — the .header-cta button takes its place */
+.mobile-cta { display: none; }
+
 .header-cta {
   background:    linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
   color:         #fff;

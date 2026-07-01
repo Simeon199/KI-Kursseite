@@ -1,5 +1,11 @@
 /* ── Anmelde-Popup ───────────────────────────────────────────────────────── */
 
+/* Popup-local colour overrides — brighter orange than the global variable */
+.modal-overlay {
+  --orange:    #F4511E;
+  --orange-dk: #D63C0E;
+}
+
 .modal-overlay {
   display:     none;
   position:    fixed;
@@ -185,8 +191,8 @@ textarea {
 
 .checkbox-row label {
   font-size:   .82rem;
-  font-weight: 400;
-  color:       var(--muted);
+  font-weight: 500;
+  color:       #2e2e2a;
 }
 
 .checkbox-row a { color: var(--orange); }
@@ -222,24 +228,34 @@ textarea {
 
 .success-msg {
   display:    none;
-  padding:    60px 28px;
   text-align: center;
 }
 
+.success-msg-header {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
+  padding:    36px 28px 28px;
+  color:      #fff;
+}
+
 .success-msg .check {
-  font-size:     3rem;
-  margin-bottom: 12px;
+  font-size:     3.2rem;
+  margin-bottom: 10px;
 }
 
 .success-msg h3 {
-  color:         var(--teal);
-  font-size:     1.3rem;
-  margin-bottom: 8px;
+  font-size:   1.4rem;
+  font-weight: 700;
+  color:       #fff;
+}
+
+.success-msg-body {
+  padding:    24px 28px 40px;
 }
 
 .success-msg p {
-  color:     var(--muted);
-  font-size: .92rem;
+  color:     #3a3a35;
+  font-size: .95rem;
+  line-height: 1.55;
 }
 
 
