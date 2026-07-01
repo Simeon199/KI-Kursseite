@@ -225,6 +225,7 @@ function buildChildrenText(children) {
  * @property {string}  message          - Optional message, or "–".
  * @property {string}  paymentStatus    - Initial invoice status, shown in SeaTable for the manual billing workflow.
  * @property {boolean} consent          - Whether the privacy-policy checkbox was ticked; sent for a server-side GDPR audit trail.
+ * @property {boolean} newsletter       - Whether the user opted in to the newsletter.
  * @property {string}  website          - Honeypot value; empty for genuine users, lets the server independently re-check for spam.
  */
 
@@ -252,6 +253,7 @@ function collectFormData(childCount) {
     message:          escapeText(document.getElementById('nachricht').value) || '–',
     paymentStatus:    'Rechnung ausstehend',
     consent:          document.getElementById('datenschutz').checked,
+    newsletter:       document.getElementById('newsletter').checked,
     website:          document.getElementById('website').value.trim()
   };
 }
