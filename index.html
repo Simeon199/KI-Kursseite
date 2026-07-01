@@ -288,9 +288,10 @@
 <!-- ANMELDE-POPUP -->
 <div class="modal-overlay" id="booking-modal">
   <div class="modal-dialog">
-    <button type="button" class="modal-close" id="modal-close-btn" aria-label="Schließen">✕</button>
 
     <div class="form-card">
+      <button type="button" class="modal-close" id="modal-close-btn" aria-label="Schließen">✕</button>
+
       <div class="form-header">
         <h2>Anmeldeformular</h2>
         <p>Alle Felder mit * sind Pflichtangaben</p>
@@ -299,109 +300,122 @@
       <div id="form-wrap">
         <form id="booking-form" novalidate>
 
-            <!-- Spam-Schutz: für Menschen unsichtbares Feld; bleibt es nicht leer, wird die Anmeldung verworfen -->
-            <div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
-              <label for="website">Website</label>
-              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-            </div>
+          <!-- Spam-Schutz: für Menschen unsichtbares Feld; bleibt es nicht leer, wird die Anmeldung verworfen -->
+          <div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
 
-            <p class="form-section-label" style="margin-top:0; margin-bottom:14px;">Ihre Angaben (Elternteil / Erziehungsberechtigte)</p>
+          <div class="form-cols">
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="vorname">Vorname <span class="req">*</span></label>
-                <input type="text" id="vorname" name="vorname" placeholder="Maria" required
-                       maxlength="60" autocomplete="given-name"
-                       pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
-                       title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+            <!-- LINKE SPALTE: Angaben des Elternteils -->
+            <div class="form-col-left">
+              <p class="form-section-label" style="margin-top:0; margin-bottom:14px;">Ihre Angaben (Elternteil / Erziehungsberechtigte)</p>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="vorname">Vorname <span class="req">*</span></label>
+                  <input type="text" id="vorname" name="vorname" placeholder="Maria" required
+                         maxlength="60" autocomplete="given-name"
+                         pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
+                         title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+                </div>
+                <div class="form-group">
+                  <label for="nachname">Nachname <span class="req">*</span></label>
+                  <input type="text" id="nachname" name="nachname" placeholder="Muster" required
+                         maxlength="60" autocomplete="family-name"
+                         pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
+                         title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+                </div>
               </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">E-Mail-Adresse <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" placeholder="maria@muster.de" required
+                         maxlength="100" autocomplete="email"
+                         inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"
+                         pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                         title="Bitte eine gültige E-Mail-Adresse eingeben">
+                </div>
+                <div class="form-group">
+                  <label for="telefon">Telefon</label>
+                  <input type="tel" id="telefon" name="telefon" placeholder="07644 …"
+                         maxlength="20" autocomplete="tel"
+                         inputmode="tel"
+                         pattern="[0-9+\/\-\s()]{0,20}"
+                         title="Bitte nur Ziffern und + / - ( ) verwenden">
+                </div>
+              </div>
+
               <div class="form-group">
-                <label for="nachname">Nachname <span class="req">*</span></label>
-                <input type="text" id="nachname" name="nachname" placeholder="Muster" required
-                       maxlength="60" autocomplete="family-name"
-                       pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
-                       title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+                <label for="adresse">Adresse (Straße, PLZ, Ort) <span class="req">*</span></label>
+                <input type="text" id="adresse" name="adresse" placeholder="Musterstraße 1, 79341 Kenzingen" required
+                       maxlength="120" autocomplete="street-address">
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">E-Mail-Adresse <span class="req">*</span></label>
-                <input type="email" id="email" name="email" placeholder="maria@muster.de" required
-                       maxlength="100" autocomplete="email"
-                       inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"
-                       pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
-                       title="Bitte eine gültige E-Mail-Adresse eingeben">
+            <!-- TRENNLINIE -->
+            <div class="form-col-divider" aria-hidden="true"></div>
+
+            <!-- RECHTE SPALTE: Kind, Termin, Nachricht, Absenden -->
+            <div class="form-col-right">
+              <div class="form-divider" style="margin-top:0;">
+                <p class="form-section-label">Angaben zum Kind</p>
               </div>
-              <div class="form-group">
-                <label for="telefon">Telefon</label>
-                <input type="tel" id="telefon" name="telefon" placeholder="07644 …"
-                       maxlength="20" autocomplete="tel"
-                       inputmode="tel"
-                       pattern="[0-9+\/\-\s()]{0,20}"
-                       title="Bitte nur Ziffern und + / - ( ) verwenden">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="kinder-anzahl">Anzahl Kinder <span class="req">*</span></label>
+                  <select id="kinder-anzahl" name="kinder-anzahl" required>
+                    <option value="" disabled selected>Bitte wählen</option>
+                    <option value="1">1 Kind</option>
+                    <option value="2">2 Kinder</option>
+                    <option value="3">3 Kinder</option>
+                  </select>
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="adresse">Adresse (Straße, PLZ, Ort) <span class="req">*</span></label>
-              <input type="text" id="adresse" name="adresse" placeholder="Musterstraße 1, 79341 Kenzingen" required
-                     maxlength="120" autocomplete="street-address">
-            </div>
+              <div id="kinder-felder"></div>
 
-            <div class="form-divider">
-              <p class="form-section-label">Angaben zum Kind</p>
-            </div>
+              <div class="form-divider">
+                <p class="form-section-label">Wunschtermin & Nachricht</p>
+              </div>
 
-            <div class="form-row">
               <div class="form-group">
-                <label for="kinder-anzahl">Anzahl Kinder <span class="req">*</span></label>
-                <select id="kinder-anzahl" name="kinder-anzahl" required>
+                <label for="wunschtermin">Bevorzugter Kurstermin</label>
+                <select id="wunschtermin" name="wunschtermin">
                   <option value="" disabled selected>Bitte wählen</option>
-                  <option value="1">1 Kind</option>
-                  <option value="2">2 Kinder</option>
-                  <option value="3">3 Kinder</option>
+                  <option value="august-1">03. – 08. August (vormittags)</option>
+                  <option value="august-2">10. – 14. August (vormittags)</option>
+                  <option value="beide">Beide Termine möglich</option>
                 </select>
               </div>
+
+              <div class="form-group">
+                <label for="nachricht">Ihre Nachricht / Fragen</label>
+                <textarea id="nachricht" name="nachricht" placeholder="Gibt es etwas, das wir wissen sollten? Haben Sie Fragen zum Kurs?" maxlength="1000"></textarea>
+              </div>
+
+              <div class="privacy-note">
+                Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt und nicht an Dritte weitergegeben. Mehr unter <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a>.
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="datenschutz" name="datenschutz" required>
+                <label for="datenschutz">Ich habe die <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung dieser Anfrage zu. <span class="req">*</span></label>
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">Ja, ich möchte den Newsletter erhalten und über zukünftige Kurse und Angebote informiert werden.</label>
+              </div>
+
+              <p class="submit-error" id="submit-error" role="alert"></p>
+
+              <button type="submit" class="btn-submit">Platz reservieren &rarr;</button>
             </div>
 
-            <div id="kinder-felder"></div>
-
-            <div class="form-divider">
-              <p class="form-section-label">Wunschtermin & Nachricht</p>
-            </div>
-
-            <div class="form-group">
-              <label for="wunschtermin">Bevorzugter Kurstermin</label>
-              <select id="wunschtermin" name="wunschtermin">
-                <option value="" disabled selected>Bitte wählen</option>
-                <option value="august-1">03. – 08. August (vormittags)</option>
-                <option value="august-2">10. – 14. August (vormittags)</option>
-                <option value="beide">Beide Termine möglich</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="nachricht">Ihre Nachricht / Fragen</label>
-              <textarea id="nachricht" name="nachricht" placeholder="Gibt es etwas, das wir wissen sollten? Haben Sie Fragen zum Kurs?" maxlength="1000"></textarea>
-            </div>
-
-            <div class="privacy-note">
-              Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt und nicht an Dritte weitergegeben. Mehr unter <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a>.
-            </div>
-            <div class="checkbox-row">
-              <input type="checkbox" id="datenschutz" name="datenschutz" required>
-              <label for="datenschutz">Ich habe die <a href="https://rein-campus.de/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung dieser Anfrage zu. <span class="req">*</span></label>
-            </div>
-            <div class="checkbox-row">
-              <input type="checkbox" id="newsletter" name="newsletter">
-              <label for="newsletter">Ja, ich möchte den Newsletter erhalten und über zukünftige Kurse und Angebote informiert werden.</label>
-            </div>
-
-            <p class="submit-error" id="submit-error" role="alert"></p>
-
-            <button type="submit" class="btn-submit">Platz reservieren &rarr;</button>
-          </form>
+          </div><!-- /.form-cols -->
+        </form>
       </div>
 
       <div class="success-msg" id="success-msg">
