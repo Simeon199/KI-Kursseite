@@ -3,18 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!--
-  Content-Security-Policy (CSP): Begrenzt, woher Ressourcen geladen und wohin
-  Daten gesendet werden dürfen. Das ist die wirksamste Bremse gegen XSS, weil
-  selbst eingeschleustes <script> nur von 'self' ausgeführt würde.
-  - script-src 'self'        : ausschließlich eigene JS-Dateien (config/render/script)
-  - style-src  'unsafe-inline': nötig, weil die Seite einzelne inline style=""-Attribute nutzt
-  - img-src 'self' data:     : eigene Bilder + die eingebetteten Base64-PNGs
-  - connect-src              : fetch() darf nur an den eigenen Origin und den n8n-Webhook
-  Hinweis: frame-ancestors / X-Frame-Options (Clickjacking-Schutz) wirken NUR als
-  HTTP-Header, nicht im <meta> – diese bitte zusätzlich auf dem Server/Hosting setzen.
--->
 <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                script-src 'self';
