@@ -16,6 +16,9 @@
   background:      rgba(15,42,42,.6);
   padding:         16px;
   overflow-y:      auto;
+  /* verhindert Scroll-Chaining: am Ende des Modal-Scrolls
+     scrollt der Seitenhintergrund nicht weiter */
+  overscroll-behavior: contain;
   visibility:      hidden;
   opacity:         0;
   transition:      opacity .25s ease, visibility .25s ease;

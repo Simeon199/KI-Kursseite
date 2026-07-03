@@ -4,6 +4,19 @@
  */
 
 /**
+ * Locks or unlocks page scrolling behind the modal. The lock must be applied
+ * to <html> AND <body>: because <html> uses overflow-x: clip, an overflow set
+ * on <body> alone no longer propagates to the viewport (CSS overflow
+ * propagation requires <html> to be `visible` on both axes).
+ * @param {boolean} locked - True to lock page scrolling, false to restore it.
+ */
+function setPageScrollLock(locked) {
+  const value = locked ? 'hidden' : '';
+  document.documentElement.style.overflow = value;
+  document.body.style.overflow = value;
+}
+
+/**
  * Opens the booking modal, locks page scrolling behind it, and resets the
  * spam time-trap so it measures fill time from when the form actually becomes
  * visible rather than from the initial page load.
@@ -12,7 +25,7 @@ function openBookingModal() {
   const modal = document.getElementById('booking-modal');
   if (!modal) return;
   modal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  setPageScrollLock(true);
   formRenderTime = Date.now();
 }
 
@@ -23,7 +36,7 @@ function closeBookingModal() {
   const modal = document.getElementById('booking-modal');
   if (!modal) return;
   modal.classList.remove('is-open');
-  document.body.style.overflow = '';
+  setPageScrollLock(false);
 }
 
 document.querySelectorAll('[data-open-booking]').forEach(function (trigger) {

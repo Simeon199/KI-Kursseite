@@ -1,6 +1,12 @@
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 880px) {
+  /* Reveal-Animationen: auf Mobile vertikal statt horizontal verschieben —
+     macht horizontalen Ueberhang (und damit seitliches Scrollen) physikalisch
+     unmoeglich, auch in Browsern ohne overflow-x: clip */
+  .reveal-left,
+  .reveal-right { transform: translateY(32px); }
+
   /* Hero */
   .hero                    { padding: 80px 0 84px; }
   .hero-inner              { flex-direction: column-reverse; }
@@ -29,6 +35,10 @@
     gap:            0;
     border-top:     1px solid rgba(255,255,255,.1);
     box-shadow:     0 8px 24px rgba(0,0,0,.3);
+    /* Querformat: Menue darf nie tiefer als der Viewport reichen (68px Header) */
+    max-height:     calc(100vh - 68px);
+    max-height:     calc(100svh - 68px);
+    overflow-y:     auto;
   }
 
   header.nav-open .header-nav { display: flex; }
@@ -61,6 +71,14 @@
     transform:  translateY(-2px);
     box-shadow: 0 8px 18px rgba(224,123,84,.35);
   }
+}
+
+/* Touch-Geraete & schmale Viewports: Formularfelder mindestens 16px gross,
+   sonst zoomt iOS Safari beim Fokussieren automatisch in das Feld hinein */
+@media (max-width: 880px), (pointer: coarse) {
+  input,
+  select,
+  textarea { font-size: 16px; }
 }
 
 @media (max-width: 480px) {
