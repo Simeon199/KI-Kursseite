@@ -1,4 +1,6 @@
 .claude/settings.json
 .claude/memory/
+.claude/launch.json
+n8n
 logs/
 CLAUDE.md
