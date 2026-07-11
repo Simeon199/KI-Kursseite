@@ -23,7 +23,6 @@ const SCHOOL_TYPE_OPTIONS = ['Werkrealschule', 'Realschule', 'Gymnasium', 'Gemei
  * @param {HTMLElement} container - The #kinder-felder container element.
  * @returns {Object.<number, ChildValues>} Map of child index to its saved values.
  */
-
 function saveChildValues(container) {
   const saved = {};
   container.querySelectorAll('.kind-block').forEach((_, idx) => {
@@ -42,13 +41,12 @@ function saveChildValues(container) {
 
 /**
  * Builds the HTML markup for a single text input form group.
- * @param {string} fieldId      - ID/name prefix for the input (e.g. "vorname").
- * @param {string} label        - Display label text.
- * @param {string} placeholder  - Input placeholder text.
- * @param {number} i            - Child index (1-based).
+ * @param {string} fieldId     - ID/name prefix for the input.
+ * @param {string} label       - Display label text.
+ * @param {string} placeholder - Input placeholder text.
+ * @param {number} i           - Child index (1-based).
  * @returns {string} HTML string for the form group.
  */
-
 function buildNameInput(fieldId, label, placeholder, i) {
   return `<div class="form-group">
       <label for="${fieldId}-kind-${i}">${label} <span class="req">*</span></label>
@@ -64,7 +62,6 @@ function buildNameInput(fieldId, label, placeholder, i) {
  * @param {number} i - Child index (1-based).
  * @returns {string} HTML string for the form row.
  */
-
 function buildNameRow(i) {
   return `<div class="form-row">
     ${buildNameInput('vorname',  'Vorname',  'Vorname des Kindes',  i)}
@@ -80,13 +77,12 @@ function buildNameRow(i) {
  * @param {number}   i       - Child index (1-based).
  * @returns {string} HTML string for the form group.
  */
-
 function buildSelectInput(fieldId, label, options, i) {
   const optionsHtml = options.map(o => `<option value="${o}">${o}</option>`).join('');
   return `<div class="form-group">
       <label for="${fieldId}-kind-${i}">${label} <span class="req">*</span></label>
       <select id="${fieldId}-kind-${i}" name="${fieldId}-kind-${i}" required>
-        <option value="" disabled selected>Bitte waehlen</option>
+        <option value="" disabled selected>Bitte wählen</option>
         ${optionsHtml}
       </select>
     </div>`;
@@ -97,7 +93,6 @@ function buildSelectInput(fieldId, label, options, i) {
  * @param {number} i - Child index (1-based).
  * @returns {string} HTML string for the form row.
  */
-
 function buildClassRow(i) {
   return `<div class="form-row">
     ${buildSelectInput('klasse',   'Klasse',   GRADE_OPTIONS,       i)}
@@ -110,7 +105,6 @@ function buildClassRow(i) {
  * @param {number} i - Child index (1-based).
  * @returns {string} HTML string for the form group.
  */
-
 function buildSchoolField(i) {
   return `<div class="form-group">
     <label for="schule-kind-${i}">Schule / Ort</label>
@@ -124,7 +118,6 @@ function buildSchoolField(i) {
  * @param {number} i - Child index (1-based).
  * @returns {HTMLDivElement} The assembled child block element.
  */
-
 function createChildBlock(i) {
   const block = document.createElement('div');
   block.className = 'kind-block';
@@ -140,7 +133,6 @@ function createChildBlock(i) {
  * @param {number}      i      - Child index (1-based).
  * @param {ChildValues} values - Saved values to restore.
  */
-
 function restoreChildValues(i, values) {
   if (!values) return;
   const set = (id, val) => { if (val) document.getElementById(id).value = val; };
@@ -155,7 +147,6 @@ function restoreChildValues(i, values) {
  * Renders child input blocks into #kinder-felder, preserving any already-entered values.
  * @param {number} count - Number of child blocks to render.
  */
-
 function renderChildFields(count) {
   const container = document.getElementById('kinder-felder');
   const saved = saveChildValues(container);
@@ -171,7 +162,6 @@ function renderChildFields(count) {
  * re-rendering if they differ.
  * @returns {number} The validated child count, or 0 if the selection is invalid.
  */
-
 function ensureChildFields() {
   const select = document.getElementById('kinder-anzahl');
   if (!select) return 0;
@@ -182,8 +172,6 @@ function ensureChildFields() {
 }
 
 // Guard against pages where #kinder-anzahl does not exist (e.g. index.html).
-// Listen for both 'change' and 'input' to catch autofill and programmatic changes.
-
 const childCountSelect = document.getElementById('kinder-anzahl');
 if (childCountSelect) {
   ['change', 'input'].forEach(ev =>
