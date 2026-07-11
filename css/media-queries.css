@@ -1,0 +1,94 @@
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 880px) {
+  /* Reveal-Animationen: auf Mobile vertikal statt horizontal verschieben —
+     macht horizontalen Ueberhang (und damit seitliches Scrollen) physikalisch
+     unmoeglich, auch in Browsern ohne overflow-x: clip */
+  .reveal-left,
+  .reveal-right { transform: translateY(32px); }
+
+  /* Hero */
+  .hero                    { padding: 80px 0 84px; }
+  .hero-inner              { flex-direction: column-reverse; }
+  .hero-inner > div:first-child,
+  .hero-image-wrap         { flex: 1 1 auto; }
+  .hero-image-wrap         { order: -1; width: 100%; }
+  .hero-image-wrap img     { max-width: 90%; }
+  .hero h1                 { font-size: 1.9rem; }
+
+  /* Sections */
+  .problem-grid, .why-grid { grid-template-columns: 1fr; }
+  .day-card                { grid-template-columns: 48px 1fr; padding: 20px; }
+
+  /* Header: show hamburger, hide desktop nav + CTA */
+  .hamburger               { display: flex; }
+  .header-cta              { display: none; }
+  .header-nav {
+    display:        none;
+    position:       absolute;
+    top:            100%;
+    left:           0;
+    right:          0;
+    background:     #1B3A3A;
+    flex-direction: column;
+    padding:        8px 5%;
+    gap:            0;
+    border-top:     1px solid rgba(255,255,255,.1);
+    box-shadow:     0 8px 24px rgba(0,0,0,.3);
+    /* Querformat: Menue darf nie tiefer als der Viewport reichen (68px Header) */
+    max-height:     calc(100vh - 68px);
+    max-height:     calc(100svh - 68px);
+    overflow-y:     auto;
+  }
+
+  header.nav-open .header-nav { display: flex; }
+
+  .header-nav a {
+    padding:       14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    font-size:     1rem;
+  }
+
+  .header-nav a:last-child { border-bottom: none; }
+
+  /* CTA inside mobile nav */
+  .header-nav .mobile-cta {
+    display:         block;
+    margin-top:      12px;
+    margin-bottom:   8px;
+    background:      linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
+    color:           #fff;
+    padding:         12px 22px;
+    border-radius:   10px;
+    font-weight:     700;
+    text-align:      center;
+    transition:      transform .15s, box-shadow .15s;
+  }
+
+  .header-nav .mobile-cta::after { display: none; }
+
+  .header-nav .mobile-cta:hover {
+    transform:  translateY(-2px);
+    box-shadow: 0 8px 18px rgba(224,123,84,.35);
+  }
+}
+
+/* Touch-Geraete & schmale Viewports: Formularfelder mindestens 16px gross,
+   sonst zoomt iOS Safari beim Fokussieren automatisch in das Feld hinein */
+@media (max-width: 880px), (pointer: coarse) {
+  input,
+  select,
+  textarea { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero                { padding: 72px 0 76px; }
+  .hero-image-wrap img { max-width: 100%; }
+  .form-header         { padding: 16px 20px; }
+
+  .day-card {
+    grid-template-columns: 1fr;
+    justify-items:         center;
+    text-align:            center;
+  }
+}

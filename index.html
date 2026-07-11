@@ -3,41 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               script-src 'self';
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data:;
+               font-src 'self' data:;
+               connect-src 'self' https://n8n.lernenlernenleichtgemacht.de;
+               form-action 'self';
+               base-uri 'self';
+               object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico"> 
 <title>KI-Führerschein für Schülerinnen und Schüler | Rein Campus</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/media-queries.css">
 </head>
 <body>
-
 <header>
   <div class="header-inner">
     <div class="logo-group">
-      <svg class="logo-svg-real" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 25969 16120" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd">
-  <path class="fil0" d="M1464 16062c-25,-72 -42,-140 -51,-203 -8,-64 -12,-179 -12,-344l0 -700c0,-204 -37,-350 -109,-437 -72,-87 -189,-130 -350,-130l-242 0 0 1814 -700 0 0 -4456 1057 0c360,0 624,84 789,251 166,168 248,426 248,774l0 350c0,458 -152,760 -458,904 166,68 284,182 357,341 72,159 108,361 108,608l0 687c0,127 4,230 13,309 8,78 29,156 63,232l-713 0zm-764 -2451l274 0c140,0 245,-36 315,-108 70,-72 105,-193 105,-363l0 -439c0,-161 -28,-278 -86,-350 -57,-72 -147,-108 -270,-108l-338 0 0 1368zm3600 -127l0 637 -961 0 0 1305 1209 0 0 636 -1909 0 0 -4456 1909 0 0 637 -1209 0 0 1241 961 0zm1461 -1878l0 4456 -700 0 0 -4456 700 0zm1213 4456l-631 0 0 -4456 879 0 719 2667 0 -2667 624 0 0 4456 -719 0 -872 -3227 0 3227z"/>
-  <path class="fil1" d="M12165 14993c0,361 -89,637 -267,831 -179,193 -438,289 -777,289 -340,0 -599,-96 -777,-289 -178,-194 -267,-470 -267,-831l0 -2317c0,-361 89,-638 267,-831 178,-193 437,-290 777,-290 339,0 598,97 777,290 178,193 267,470 267,831l0 432 -662 0 0 -477c0,-293 -121,-439 -363,-439 -242,0 -363,146 -363,439l0 2406c0,289 121,433 363,433 242,0 363,-144 363,-433l0 -636 662 0 0 592zm2066 1069l-121 -808 -860 0 -121 808 -643 0 713 -4456 1025 0 713 4456 -706 0zm-217 -1413l-337 -2254 -338 2254 675 0zm3288 -3043l974 0 0 4456 -662 0 0 -3195 -484 3195 -662 0 -522 -3151 0 3151 -611 0 0 -4456 974 0 516 3164 477 -3164zm2594 0c348,0 609,93 783,280 174,187 261,461 261,821l0 580c0,360 -87,634 -261,821 -174,187 -435,280 -783,280l-331 0 0 1674 -700 0 0 -4456 1031 0zm-331 2145l331 0c115,0 201,-31 258,-95 57,-64 86,-172 86,-325l0 -668c0,-153 -29,-261 -86,-325 -57,-64 -143,-95 -258,-95l-331 0 0 1508zm2479 1293c0,288 121,433 363,433 242,0 363,-145 363,-433l0 -3438 662 0 0 3393c0,361 -89,638 -267,831 -178,193 -437,290 -777,290 -339,0 -598,-97 -776,-290 -179,-193 -268,-470 -268,-831l0 -3393 700 0 0 3438zm1856 -2368c0,-361 87,-638 261,-831 174,-193 431,-290 770,-290 340,0 597,97 771,290 174,193 261,470 261,831l0 140 -662 0 0 -185c0,-153 -30,-264 -90,-334 -59,-70 -146,-105 -261,-105 -114,0 -201,35 -261,105 -59,70 -89,181 -89,334 0,187 50,350 150,490 100,140 249,299 449,478 165,152 299,287 401,404 102,117 189,258 261,423 72,166 108,355 108,567 0,361 -89,637 -267,831 -179,193 -438,289 -777,289 -340,0 -599,-96 -777,-289 -178,-194 -267,-470 -267,-831l0 -274 662 0 0 318c0,289 121,433 363,433 242,0 363,-144 363,-433 0,-186 -50,-350 -150,-490 -100,-140 -249,-299 -449,-477 -165,-153 -299,-288 -401,-405 -102,-116 -189,-257 -261,-423 -72,-165 -108,-354 -108,-566z"/>
-  <path class="fil2" d="M15297 5051l-3871 0c-185,0 -336,151 -336,335l0 592c0,185 151,336 336,336l3871 0c462,0 844,382 844,844l0 1345c0,185 151,336 336,336l591 0c185,0 336,-151 336,-336l0 -1345c0,-574 -232,-1095 -607,-1476 375,-381 607,-902 607,-1475l0 -419 0 -1263 0 -418c0,-1159 -948,-2107 -2107,-2107l-6396 0c-185,0 -336,151 -336,336l0 591c0,185 151,336 336,336l6396 0c462,0 844,382 844,844l0 418 0 1263 0 419c0,461 -382,844 -844,844z"/>
-  <path class="fil3" d="M10672 8839l3871 0c185,0 336,-151 336,-336l0 -591c0,-185 -151,-336 -336,-336l-3871 0c-462,0 -844,-382 -844,-844l0 -418 0 -1263 0 -419c0,-462 382,-844 844,-844l3871 0c185,0 336,-151 336,-335l0 -592c0,-185 -151,-336 -336,-336l-3871 0c-1159,0 -2107,948 -2107,2107l0 419 0 1263 0 418c0,1159 948,2107 2107,2107z"/>
-</svg>
+      <a href="#" aria-label="Zum Seitenanfang">
+        <img src="assets/rc_icon.png" alt="logo">
+      </a>
     </div>
-    <a href="booking/booking.html" class="header-cta">Jetzt anmelden</a>
+    <nav class="header-nav">
+      <a href="#problem">Warum jetzt</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#warum">Warum wir</a>
+      <a href="#preis">Preis</a>
+      <a href="#faq">FAQ</a>
+      <a href="#" class="mobile-cta" data-open-booking>Jetzt anmelden</a>
+    </nav>
+    <a href="#" class="header-cta" data-open-booking>Jetzt anmelden</a>
+    <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div>
+    <div style="width: 90%;">
       <span class="hero-eyebrow">Neu bei Rein Campus</span>
       <h1>Der <span>KI-Führerschein</span> für Schülerinnen und Schüler</h1>
       <p class="lead">In 5 kompakten Einheiten lernt Ihr Kind, KI-Tools wie ChatGPT und Claude souverän, kritisch und sicher zu nutzen – fürs Lernen und fürs Leben.</p>
       <div class="hero-ctas">
-        <a href="booking/booking.html" class="btn-primary">Platz sichern &rarr;</a>
+        <a href="#" class="btn-primary" data-open-booking>Platz sichern &rarr;</a>
         <a href="#preis" class="btn-secondary">Preis & Details</a>
       </div>
       <div class="hero-tags">
-        <span class="hero-tag">📅 03.–08. & 10.–14. August</span>
-        <span class="hero-tag">⏱ 5 × 90 Minuten, vormittags</span>
-        <span class="hero-tag">👤 Klasse 7–10</span>
-        <span class="hero-tag">🎓 Zertifikat inklusive</span>
+        <span class="hero-tag">03.–08. & 10.–14. August</span>
+        <span class="hero-tag">5 × 90 Minuten, vormittags</span>
+        <span class="hero-tag">Klasse 7–10</span>
+        <span class="hero-tag">Zertifikat inklusive</span>
       </div>
     </div>
     <div class="hero-image-wrap">
@@ -47,7 +74,7 @@
 </section>
 
 <!-- PROBLEM / WARUM JETZT -->
-<section class="problem-section">
+<section class="problem-section" id="problem">
   <div class="wrap">
     <p class="section-label">Warum jetzt?</p>
     <h2 class="section-title">KI ist längst Teil des Schulalltags</h2>
@@ -70,7 +97,7 @@
 </section>
 
 <!-- CURRICULUM -->
-<section class="curriculum-section">
+<section class="curriculum-section" id="ablauf">
   <div class="wrap">
     <p class="section-label">Der Ablauf</p>
     <h2 class="section-title">Was Ihr Kind in 5 Tagen lernt</h2>
@@ -124,7 +151,7 @@
 </section>
 
 <!-- WARUM REIN CAMPUS -->
-<section class="why-section">
+<section class="why-section" id="warum">
   <div class="wrap">
     <p class="section-label">Warum Rein Campus?</p>
     <h2 class="section-title">Mehr als nur ein Computerkurs</h2>
@@ -189,13 +216,13 @@
         <li>Praktische Projekte & Abschlusspräsentation</li>
         <li>KI-Führerschein-Zertifikat</li>
       </ul>
-      <a href="buchungsseite-ki-fuehrerschein.html" class="btn-primary" style="width:100%;">Jetzt Platz sichern &rarr;</a>
+      <a href="#" class="btn-primary" style="width:100%;" data-open-booking>Jetzt Platz sichern &rarr;</a>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq-section">
+<section class="faq-section" id="faq">
   <div class="wrap" style="max-width:760px;">
     <p class="section-label">Häufige Fragen</p>
     <h2 class="section-title">Gut zu wissen</h2>
@@ -226,7 +253,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Wie melde ich mein Kind an? <span class="arrow">+</span></div>
-      <div class="faq-a"><p>Über unsere <a href="buchungsseite-ki-fuehrerschein.html">Buchungsseite</a> – das Formular dauert nur wenige Minuten. Sie erhalten anschließend eine Bestätigung per E-Mail.</p></div>
+      <div class="faq-a"><p>Über unser <a href="#" data-open-booking>Anmeldeformular</a> – es dauert nur wenige Minuten. Wir melden uns anschließend bei Ihnen, um die Anmeldung zu bestätigen.</p></div>
     </div>
   </div>
 </section>
@@ -236,17 +263,172 @@
   <div class="wrap">
     <h2>Bereit für den KI-Führerschein?</h2>
     <p>Sichern Sie jetzt einen der begrenzten Plätze für Ihr Kind.</p>
-    <a href="buchungsseite-ki-fuehrerschein.html" class="btn-primary">Jetzt anmelden &rarr;</a>
+    <a href="#" class="btn-primary" data-open-booking>Jetzt anmelden &rarr;</a>
   </div>
 </section>
 
 <footer>
   Rein Campus · Hauptstraße 12 · 79341 Kenzingen<br>
   <a href="tel:+4976449294280">07644 9294280</a> · <a href="mailto:info@rein-campus.de">info@rein-campus.de</a> · <a href="https://rein-campus.de" target="_blank">www.rein-campus.de</a><br><br>
-  <a href="https://rein-campus.de/impressum/">Impressum</a> &nbsp;·&nbsp; <a href="https://rein-campus.de/privacy-policy/">Datenschutz</a>
+  <a href="legal/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="legal/datenschutz.html">Datenschutz</a> &nbsp;·&nbsp; <a href="legal/agb.html">AGB</a>
 </footer>
 
-<script src="script.js"></script>
+<!-- ANMELDE-POPUP -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-dialog">
+
+    <div class="form-card">
+      <button type="button" class="modal-close" id="modal-close-btn" aria-label="Schließen">✕</button>
+
+      <div class="form-header">
+        <h2>Anmeldeformular</h2>
+        <p>Alle Felder mit * sind Pflichtangaben</p>
+      </div>
+
+      <div id="form-wrap">
+        <form id="booking-form" novalidate>
+
+          <!-- Spam-Schutz: für Menschen unsichtbares Feld; bleibt es nicht leer, wird die Anmeldung verworfen -->
+          <div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-cols">
+
+            <!-- LINKE SPALTE: Angaben des Elternteils -->
+            <div class="form-col-left">
+              <p class="form-section-label" style="margin-top:0; margin-bottom:14px;">Ihre Angaben (Elternteil / Erziehungsberechtigte)</p>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="vorname">Vorname <span class="req">*</span></label>
+                  <input type="text" id="vorname" name="vorname" placeholder="Maria" required
+                         maxlength="60" autocomplete="given-name"
+                         pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
+                         title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+                </div>
+                <div class="form-group">
+                  <label for="nachname">Nachname <span class="req">*</span></label>
+                  <input type="text" id="nachname" name="nachname" placeholder="Muster" required
+                         maxlength="60" autocomplete="family-name"
+                         pattern="[A-Za-zÄÖÜäöüß\-\s]{2,60}"
+                         title="Bitte nur Buchstaben, Leerzeichen und Bindestriche verwenden">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">E-Mail-Adresse <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" placeholder="maria@muster.de" required
+                         maxlength="100" autocomplete="email"
+                         inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"
+                         pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                         title="Bitte eine gültige E-Mail-Adresse eingeben">
+                </div>
+                <div class="form-group">
+                  <label for="telefon">Telefon</label>
+                  <input type="tel" id="telefon" name="telefon" placeholder="07644 …"
+                         maxlength="20" autocomplete="tel"
+                         inputmode="tel"
+                         pattern="[0-9+\s\(\)\/\.,\-]{0,20}"
+                         title="Bitte nur Ziffern und + / - ( ) verwenden">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="adresse">Adresse (Straße, PLZ, Ort) <span class="req">*</span></label>
+                <input type="text" id="adresse" name="adresse" placeholder="Musterstraße 1, 79341 Kenzingen" required
+                       maxlength="120" autocomplete="street-address">
+              </div>
+            </div>
+
+            <!-- TRENNLINIE -->
+            <div class="form-col-divider" aria-hidden="true"></div>
+
+            <!-- RECHTE SPALTE: Kind, Termin, Nachricht, Absenden -->
+            <div class="form-col-right">
+              <div class="form-divider" style="margin-top:0;">
+                <p class="form-section-label">Angaben zum Kind</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="kinder-anzahl">Anzahl Kinder <span class="req">*</span></label>
+                  <select id="kinder-anzahl" name="kinder-anzahl" required>
+                    <option value="" disabled selected>Bitte wählen</option>
+                    <option value="1">1 Kind</option>
+                    <option value="2">2 Kinder</option>
+                    <option value="3">3 Kinder</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="kinder-felder"></div>
+
+              <div class="form-divider">
+                <p class="form-section-label">Wunschtermin & Nachricht</p>
+              </div>
+
+              <div class="form-group">
+                <label for="wunschtermin">Bevorzugter Kurstermin</label>
+                <select id="wunschtermin" name="wunschtermin">
+                  <option value="" disabled selected>Bitte wählen</option>
+                  <option value="august-1">03. – 08. August (vormittags)</option>
+                  <option value="august-2">10. – 14. August (vormittags)</option>
+                  <option value="beide">Beide Termine möglich</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="nachricht">Ihre Nachricht / Fragen</label>
+                <textarea id="nachricht" name="nachricht" placeholder="Gibt es etwas, das wir wissen sollten? Haben Sie Fragen zum Kurs?" maxlength="1000"></textarea>
+              </div>
+
+              <div class="privacy-note">
+                Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt und nicht an Dritte weitergegeben. Mehr unter <a href="legal/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a>.
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="datenschutz" name="datenschutz" required>
+                <label for="datenschutz">Ich habe die <a href="legal/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung dieser Anfrage zu. <span class="req">*</span></label>
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">Ja, ich möchte den Newsletter erhalten und über zukünftige Kurse und Angebote informiert werden.</label>
+              </div>
+
+              <p class="submit-error" id="submit-error" role="alert"></p>
+
+              <button type="submit" class="btn-submit">Platz reservieren &rarr;</button>
+            </div>
+
+          </div><!-- /.form-cols -->
+        </form>
+      </div>
+
+      <div class="success-msg" id="success-msg">
+        <div class="success-msg-header">
+          <div class="check">✅</div>
+          <h3>Vielen Dank für Ihre Anmeldung!</h3>
+        </div>
+        <div class="success-msg-body">
+          <p>Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen, um die Anmeldung zu bestätigen und die Rechnung zu übersenden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/render.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/form-data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/submit.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/navigation.js"></script>
 
 </body>
 </html>
