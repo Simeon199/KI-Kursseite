@@ -8,8 +8,6 @@
 const CONFIG = {
   n8nWebhookUrl:    'https://n8n.lernenlernenleichtgemacht.de/webhook/kursregistrierung',
   appointmentLabels: {
-    'august-1': '03. – 08. August (vormittags)',
-    'august-2': '10. – 14. August (vormittags)',
-    'beide':    'Beide Termine möglich'
+    'august-2': '10. – 14. August (vormittags)'
   }
 };
