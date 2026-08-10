@@ -277,15 +277,20 @@
 <div class="modal-overlay" id="booking-modal">
   <div class="modal-dialog">
 
-    <div class="form-card">
+    <div class="form-card booking-closed">
       <button type="button" class="modal-close" id="modal-close-btn" aria-label="Schließen">✕</button>
 
       <div class="form-header">
-        <h2>Anmeldeformular</h2>
-        <p>Alle Felder mit * sind Pflichtangaben</p>
+        <h2>Kursanmeldung</h2>
+        <p>Aktuell sind keine Präsenztermine verfügbar</p>
       </div>
 
       <div id="form-wrap">
+        <div class="form-notice">
+          <p class="form-notice-title">Aktuell kein Präsenzkurs im Angebot</p>
+          <p>Im Moment bieten wir keinen KI-Führerschein-Kurs an. Sobald neue Präsenztermine feststehen, informieren wir Sie hier auf dieser Seite.</p>
+          <p>Schauen Sie gerne bald wieder vorbei!</p>
+        </div>
         <form id="booking-form" novalidate>
 
           <!-- Spam-Schutz: für Menschen unsichtbares Feld; bleibt es nicht leer, wird die Anmeldung verworfen -->
