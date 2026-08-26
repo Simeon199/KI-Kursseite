@@ -29,7 +29,7 @@
     top:            100%;
     left:           0;
     right:          0;
-    background:     #1B3A3A;
+    background:     var(--ink-deep);
     flex-direction: column;
     padding:        8px 5%;
     gap:            0;
@@ -59,7 +59,7 @@
     background:      linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
     color:           #fff;
     padding:         12px 22px;
-    border-radius:   10px;
+    border-radius:   var(--radius-pill);
     font-weight:     700;
     text-align:      center;
     transition:      transform .15s, box-shadow .15s;
@@ -69,7 +69,7 @@
 
   .header-nav .mobile-cta:hover {
     transform:  translateY(-2px);
-    box-shadow: 0 8px 18px rgba(224,123,84,.35);
+    box-shadow: var(--shadow-btn-hover);
   }
 }
 

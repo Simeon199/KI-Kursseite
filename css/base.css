@@ -1,3 +1,34 @@
+/* alignment-with-course-page: Outfit/Inter lokal statt Google-Fonts-CDN, analog
+   Course_Page (Nutzerentscheidung dort: keine externen Font-Requests). Variable
+   Fonts statt Static-Weight-Satz — je ein Dateipaar deckt die komplette
+   Weight-Achse ab (Outfit 400–800, Inter 400–700 + Italic). */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../fonts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype-variations'),
+       url('../fonts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations'),
+       url('../fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations'),
+       url('../fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --teal:    #3AABAA;
   --teal-dk: #2C8C8B;
@@ -7,10 +38,42 @@
   --ink:  #232323;
   --muted: #6B6B66;
   --card: #FFFFFF;
+  /* Dark-Panel-Toene 1:1 von Course_Page uebernommen (dort --ink-deep/--panel-end)
+     — warmer neutraler Verlauf statt des vorherigen teal-lastigen Farbtons,
+     naeher an Course_Page's Optik. --ink-deep dient zugleich als flacher
+     Ton fuer kompakte Balken (Header/Footer/Mobile-Nav): dort wuerde der volle
+     Verlauf am hellen Ende (--panel-end) den Kontrast bestehender Textfarben
+     (u. a. #D8E4E2, var(--teal)) unter AA drücken (gepruefte Werte: 2–4.3:1) —
+     der volle Verlauf bleibt daher den grossen Panels (Hero/Preis/Final-CTA)
+     vorbehalten, wo Text ueberwiegend in der dunkleren Haelfte sitzt. */
+  --ink-deep: #2E2C2A;
+  --panel-end: #6B6860;
   --gradient-dark:
-    radial-gradient(900px circle at 85% 12%, rgba(58,171,170,.28), transparent 60%),
-    radial-gradient(700px circle at 8% 92%, rgba(224,123,84,.18), transparent 55%),
-    linear-gradient(135deg, #1B3A3A 0%, #0F2A2A 100%);
+    radial-gradient(900px circle at 85% 12%, rgba(58,171,170,.24), transparent 60%),
+    radial-gradient(700px circle at 8% 92%, rgba(224,123,84,.22), transparent 55%),
+    linear-gradient(135deg, var(--ink-deep) 0%, var(--panel-end) 100%);
+
+  /* Radius-Skala (analog Course_Page, Pill vereinheitlicht 999px) */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* Schatten-Skala (analog Course_Page: ruhend / Hover getrennt) */
+  --shadow-sm: 0 2px 10px rgba(0,0,0,.04);
+  --shadow-md: 0 14px 28px rgba(0,0,0,.1);
+  --shadow-lg: 0 24px 50px rgba(0,0,0,.18);
+  --shadow-btn: 0 14px 28px -12px rgba(224,123,84,.45);
+  --shadow-btn-hover: 0 18px 32px -12px rgba(224,123,84,.55);
+
+  /* Spacing-Skala (analog Course_Page) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
 }
 
 * {
@@ -32,10 +95,16 @@ body {
 }
 
 body {
-  font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background:  var(--bg);
   color:       var(--ink);
   line-height: 1.6;
+}
+
+h1, h2, h3, h4,
+.hero-eyebrow,
+.section-label {
+  font-family: 'Outfit', sans-serif;
 }
 
 a   { text-decoration: none; }

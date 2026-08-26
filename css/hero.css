@@ -26,15 +26,27 @@
 .hero-image-wrap              { flex: 0.8 1 280px; }
 
 .hero-eyebrow {
-  display:        inline-block;
+  display:        inline-flex;
+  align-items:    center;
+  gap:            8px;
   background:     rgba(224,123,84,.18);
   color:          var(--orange);
   font-weight:    600;
-  letter-spacing: .6px;
+  font-size:      .82rem;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  padding:        6px 14px;
-  border-radius:  10px;
+  padding:        8px 16px;
+  border-radius:  var(--radius-pill);
   margin-bottom:  18px;
+}
+
+.hero-eyebrow::before {
+  content:       "";
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  background:    var(--teal);
+  flex-shrink:   0;
 }
 
 .hero h1 {
@@ -69,16 +81,17 @@
   background:    linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
   color:         #fff;
   padding:       15px 30px;
-  border-radius: 10px;
+  border-radius: var(--radius-pill);
   font-weight:   700;
   font-size:     1rem;
   display:       inline-block;
+  box-shadow:    var(--shadow-btn);
   transition:    transform .15s, box-shadow .15s;
 }
 
 .btn-primary:hover {
   transform:  translateY(-2px);
-  box-shadow: 0 10px 24px rgba(224,123,84,.35);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .btn-secondary {
@@ -86,7 +99,7 @@
   color:         #fff;
   padding:       15px 30px;
   border:        2px solid rgba(255,255,255,.35);
-  border-radius: 10px;
+  border-radius: var(--radius-pill);
   font-weight:   700;
   font-size:     1rem;
   display:       inline-block;
@@ -105,7 +118,7 @@
   background:      rgba(58,171,170,.12);
   border:          1px solid rgba(58,171,170,.35);
   padding:         8px 14px;
-  border-radius:   10px;
+  border-radius:   var(--radius-pill);
   font-weight:     500;
   color:           #BFE8E6;
   -webkit-backdrop-filter: blur(6px);
@@ -128,7 +141,7 @@
   max-width:     520px;
   aspect-ratio:  4 / 3;
   object-fit:    cover;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   box-shadow:    0 24px 60px rgba(0,0,0,.4);
   display:       block;
 }
