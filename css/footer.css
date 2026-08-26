@@ -1,7 +1,7 @@
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 
 footer {
-  background:  #1B3A3A;
+  background:  var(--ink-deep);
   color:       #aebebd;
   text-align:  center;
   padding:     28px 24px;

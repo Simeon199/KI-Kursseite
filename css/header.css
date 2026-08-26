@@ -4,7 +4,7 @@ header {
   position:      sticky;
   top:           0;
   z-index:       100;
-  background:    #1B3A3A;
+  background:    var(--ink-deep);
   border-bottom: 1px solid rgba(255,255,255,.08);
   box-shadow:    0 4px 16px rgba(0,0,0,.18);
 }
@@ -30,7 +30,7 @@ header {
 
 .logo-group img {
   width:         40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .header-nav {
@@ -73,7 +73,7 @@ header {
   background:    linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
   color:         #fff;
   padding:       10px 22px;
-  border-radius: 10px;
+  border-radius: var(--radius-pill);
   font-weight:   700;
   font-size:     .88rem;
   white-space:   nowrap;
@@ -82,7 +82,7 @@ header {
 
 .header-cta:hover {
   transform:  translateY(-2px);
-  box-shadow: 0 8px 18px rgba(224,123,84,.35);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 
