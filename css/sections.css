@@ -9,8 +9,8 @@ section[id] { scroll-margin-top: 90px; }
   width:          fit-content;
   align-items:    center;
   gap:            8px;
-  color:          var(--orange);
-  background:     rgba(224,123,84,.12);
+  color:          var(--teal-dk);
+  background:     rgba(95,216,206,.12);
   font-weight:    700;
   font-size:      .82rem;
   text-transform: uppercase;
@@ -25,7 +25,7 @@ section[id] { scroll-margin-top: 90px; }
   width:         8px;
   height:        8px;
   border-radius: 50%;
-  background:    var(--teal);
+  background:    var(--orange);
   flex-shrink:   0;
 }
 
@@ -209,8 +209,8 @@ section[id] { scroll-margin-top: 90px; }
 
 .price-section {
   position:   relative;
-  background: var(--gradient-dark);
-  color:      #fff;
+  background: var(--bg);
+  color:      var(--ink);
 }
 
 .price-card {
@@ -218,6 +218,7 @@ section[id] { scroll-margin-top: 90px; }
   margin:        0 auto;
   background:    #fff;
   color:         var(--ink);
+  border:        2px solid var(--orange);
   border-radius: var(--radius-lg);
   padding:       40px 36px;
   text-align:    center;
@@ -341,8 +342,8 @@ section[id] { scroll-margin-top: 90px; }
 /* ── Final CTA ───────────────────────────────────────────────────────────── */
 
 .final-cta {
-  background:  var(--gradient-dark);
-  color:       #fff;
+  background:  var(--bg);
+  color:       var(--ink);
   text-align:  center;
 }
 
@@ -353,7 +354,7 @@ section[id] { scroll-margin-top: 90px; }
 }
 
 .final-cta p {
-  color:         #D8E4E2;
+  color:         var(--muted);
   margin-bottom: 30px;
   font-size:     1.05rem;
 }

@@ -2,8 +2,10 @@
 
 .hero {
   position:    relative;
-  background:  var(--gradient-dark);
-  color:       #fff;
+  background:
+    radial-gradient(900px circle at 85% 12%, rgba(95,216,206,.24), transparent 60%),
+    radial-gradient(700px circle at 8% 92%, rgba(255,122,69,.22), transparent 55%);
+  color:       var(--ink);
   min-height:  100vh;
   min-height:  100svh;
   display:     flex;
@@ -29,7 +31,7 @@
   display:        inline-flex;
   align-items:    center;
   gap:            8px;
-  background:     rgba(224,123,84,.18);
+  background:     rgba(255,122,69,.18);
   color:          var(--orange);
   font-weight:    600;
   font-size:      .82rem;
@@ -57,7 +59,7 @@
 }
 
 .hero h1 span {
-  background:              linear-gradient(135deg, var(--teal) 0%, #8FE3E0 100%);
+  background:              linear-gradient(135deg, var(--teal-dk) 0%, var(--teal) 100%);
   -webkit-background-clip: text;
   background-clip:         text;
   color:                   transparent;
@@ -65,7 +67,7 @@
 
 .hero p.lead {
   font-size:     1.1rem;
-  color:         #D8E4E2;
+  color:         var(--muted);
   margin-bottom: 28px;
   max-width:     540px;
 }
@@ -96,9 +98,9 @@
 
 .btn-secondary {
   background:    transparent;
-  color:         #fff;
+  color:         var(--ink);
   padding:       15px 30px;
-  border:        2px solid rgba(255,255,255,.35);
+  border:        2px solid rgba(0,0,0,.2);
   border-radius: var(--radius-pill);
   font-weight:   700;
   font-size:     1rem;
@@ -106,7 +108,7 @@
   transition:    border-color .15s;
 }
 
-.btn-secondary:hover { border-color: var(--teal); }
+.btn-secondary:hover { border-color: var(--teal-dk); }
 
 .hero-tags {
   display:   flex;
@@ -115,8 +117,8 @@
 }
 
 .hero-tag {
-  background:      rgba(58,171,170,.12);
-  border:          1px solid rgba(58,171,170,.35);
+  background:      rgba(95,216,206,.12);
+  border:          1px solid rgba(95,216,206,.35);
   padding:         8px 14px;
   border-radius:   var(--radius-pill);
   font-weight:     500;
@@ -128,7 +130,7 @@
 
 .hero-tag:hover {
   border-color: var(--teal);
-  background:   rgba(58,171,170,.2);
+  background:   rgba(95,216,206,.2);
 }
 
 .hero-image-wrap {
@@ -136,12 +138,41 @@
   justify-content: center;
 }
 
-.hero-image-wrap img {
+.hero-image-frame {
+  position:      relative;
   width:         100%;
   max-width:     520px;
+  border-radius: var(--radius-lg);
+  box-shadow:    0 24px 60px rgba(0,0,0,.25);
+  transition:    transform .3s ease, box-shadow .3s ease;
+}
+
+.hero-image-frame:hover {
+  transform:  translateY(-4px) scale(1.015);
+  box-shadow: 0 28px 70px rgba(0,0,0,.32);
+}
+
+.hero-image-frame img {
+  width:         100%;
   aspect-ratio:  4 / 3;
   object-fit:    cover;
-  border-radius: var(--radius-lg);
-  box-shadow:    0 24px 60px rgba(0,0,0,.4);
+  border-radius: inherit;
   display:       block;
+}
+
+/* Dezenter Hinweis auf KI-generiertes Bildmaterial — bewusst klein/unauffaellig
+   in der Ecke platziert statt als auffaelliges Badge. */
+.hero-image-badge {
+  position:        absolute;
+  bottom:          12px;
+  right:           12px;
+  background:      rgba(0,0,0,.45);
+  color:           rgba(255,255,255,.85);
+  font-size:       .68rem;
+  font-weight:     500;
+  padding:         4px 10px;
+  border-radius:   var(--radius-pill);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events:  none;
 }

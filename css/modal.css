@@ -14,6 +14,8 @@
   inset:           0;
   z-index:         200;
   background:      rgba(15,42,42,.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter:         blur(4px);
   padding:         16px;
   overflow-y:      auto;
   /* verhindert Scroll-Chaining: am Ende des Modal-Scrolls
@@ -54,10 +56,14 @@
   display:         flex;
   align-items:     center;
   justify-content: center;
-  transition:      background .15s;
+  transition:      background .15s, color .15s, transform .25s ease;
 }
 
-.modal-close:hover { background: #fff; }
+.modal-close:hover {
+  background: #fff;
+  color:      var(--orange-dk);
+  transform:  rotate(90deg) scale(1.08);
+}
 
 
 /* ── Form card ───────────────────────────────────────────────────────────── */
@@ -71,10 +77,23 @@
 }
 
 .form-header {
+  position:   relative;
+  overflow:   hidden;
   background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
   padding:    20px 28px;
   color:      #fff;
 }
+
+.form-header::before {
+  content:    "";
+  position:   absolute;
+  inset:      0;
+  background: radial-gradient(280px 140px at 92% -30%, rgba(255,255,255,.3), transparent 60%);
+  pointer-events: none;
+}
+
+.form-header h2,
+.form-header p { position: relative; }
 
 .form-header h2 {
   font-size:   1.15rem;
@@ -147,7 +166,7 @@ textarea {
   font-family:   inherit;
   color:         var(--ink);
   background:    #fff;
-  transition:    border-color .15s;
+  transition:    border-color .15s, box-shadow .15s;
 }
 
 input:focus,
@@ -155,6 +174,7 @@ select:focus,
 textarea:focus {
   outline:      none;
   border-color: var(--teal);
+  box-shadow:   0 0 0 3px rgba(95,216,206,.18);
 }
 
 textarea {
@@ -214,10 +234,16 @@ textarea {
   font-size:     1rem;
   font-weight:   700;
   cursor:        pointer;
-  transition:    background .15s, transform .1s;
+  box-shadow:    0 10px 24px -10px rgba(244,81,30,.45);
+  transition:    background .15s, transform .15s, box-shadow .15s;
 }
 
-.btn-submit:hover  { background: var(--orange-dk); }
+.btn-submit:hover {
+  background: var(--orange-dk);
+  transform:  translateY(-2px);
+  box-shadow: 0 14px 30px -10px rgba(244,81,30,.55);
+}
+
 .btn-submit:active { transform: scale(.98); }
 
 

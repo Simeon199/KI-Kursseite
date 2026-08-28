@@ -30,43 +30,32 @@
 }
 
 :root {
-  --teal:    #3AABAA;
-  --teal-dk: #2C8C8B;
-  --orange:  #E07B54;
-  --orange-dk: #C9613C;
-  --bg:   #F8F8F6;
-  --ink:  #232323;
-  --muted: #6B6B66;
+  --teal:    #5FD8CE;
+  --teal-dk: #1F8E85;
+  --orange:  #FF7A45;
+  --orange-dk: #E8632E;
+  --bg:   #F6F6F4;
+  --ink:  #1E2321;
+  --muted: #5B615C;
   --card: #FFFFFF;
-  /* Dark-Panel-Toene 1:1 von Course_Page uebernommen (dort --ink-deep/--panel-end)
-     — warmer neutraler Verlauf statt des vorherigen teal-lastigen Farbtons,
-     naeher an Course_Page's Optik. --ink-deep dient zugleich als flacher
-     Ton fuer kompakte Balken (Header/Footer/Mobile-Nav): dort wuerde der volle
-     Verlauf am hellen Ende (--panel-end) den Kontrast bestehender Textfarben
-     (u. a. #D8E4E2, var(--teal)) unter AA drücken (gepruefte Werte: 2–4.3:1) —
-     der volle Verlauf bleibt daher den grossen Panels (Hero/Preis/Final-CTA)
-     vorbehalten, wo Text ueberwiegend in der dunkleren Haelfte sitzt. */
   --ink-deep: #2E2C2A;
   --panel-end: #6B6860;
   --gradient-dark:
-    radial-gradient(900px circle at 85% 12%, rgba(58,171,170,.24), transparent 60%),
-    radial-gradient(700px circle at 8% 92%, rgba(224,123,84,.22), transparent 55%),
+    radial-gradient(900px circle at 85% 12%, rgba(95,216,206,.24), transparent 60%),
+    radial-gradient(700px circle at 8% 92%, rgba(255,122,69,.22), transparent 55%),
     linear-gradient(135deg, var(--ink-deep) 0%, var(--panel-end) 100%);
 
-  /* Radius-Skala (analog Course_Page, Pill vereinheitlicht 999px) */
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 18px;
   --radius-pill: 999px;
 
-  /* Schatten-Skala (analog Course_Page: ruhend / Hover getrennt) */
   --shadow-sm: 0 2px 10px rgba(0,0,0,.04);
   --shadow-md: 0 14px 28px rgba(0,0,0,.1);
   --shadow-lg: 0 24px 50px rgba(0,0,0,.18);
-  --shadow-btn: 0 14px 28px -12px rgba(224,123,84,.45);
-  --shadow-btn-hover: 0 18px 32px -12px rgba(224,123,84,.55);
+  --shadow-btn: 0 14px 28px -12px rgba(255,122,69,.45);
+  --shadow-btn-hover: 0 18px 32px -12px rgba(255,122,69,.55);
 
-  /* Spacing-Skala (analog Course_Page) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
