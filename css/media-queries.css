@@ -29,12 +29,12 @@
     top:            100%;
     left:           0;
     right:          0;
-    background:     var(--ink-deep);
+    background:     var(--card);
     flex-direction: column;
     padding:        8px 5%;
     gap:            0;
-    border-top:     1px solid rgba(255,255,255,.1);
-    box-shadow:     0 8px 24px rgba(0,0,0,.3);
+    border-top:     1px solid rgba(0,0,0,.08);
+    box-shadow:     0 8px 24px rgba(0,0,0,.12);
     /* Querformat: Menue darf nie tiefer als der Viewport reichen (68px Header) */
     max-height:     calc(100vh - 68px);
     max-height:     calc(100svh - 68px);
@@ -45,7 +45,7 @@
 
   .header-nav a {
     padding:       14px 0;
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(0,0,0,.07);
     font-size:     1rem;
   }
 
