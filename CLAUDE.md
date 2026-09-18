@@ -2,47 +2,9 @@
 
 Diese Datei gibt Claude Code (claude.ai/code) Hinweise zur Arbeit in diesem Repository.
 
-## Lokale Entwicklung
-
-Keine Build-Tools oder Paketverwaltung vorhanden. Das Projektverzeichnis mit einem beliebigen Static-File-Server starten:
-
-```bash
-python -m http.server 8080
-# oder
-npx serve .
-```
-
-Landingpage: `http://localhost:8080`  
-Anmeldeformular: `http://localhost:8080/booking/booking.html`
-
 ## Architektur
 
 Reine Vanilla-JS-Webseite ohne Framework oder Bundler.
-
-**Seiten**
-
-- `index.html` — Kurs-Landingpage mit FAQ-Akkordeon
-- `booking/booking.html` — Anmeldeformular; lädt alle drei JS-Dateien
-
-**JavaScript-Dateien** (als einfache `<script>`-Tags eingebunden, Reihenfolge relevant)
-
-- `config.js` — Einziges `CONFIG`-Objekt mit n8n-Webhook-URL, Digistore24-Checkout-URL und der Zuordnung von Terminschlüsseln zu lesbaren Labels. URL-Änderungen ausschließlich hier vornehmen.
-- `render.js` — Baut die Kind-Eingabeblöcke dynamisch auf Basis des `#kinder-anzahl`-Selects auf und rendert sie bei Änderung neu. Bereits eingegebene Werte bleiben dabei erhalten.
-- `script.js` — FAQ-Akkordeon sowie der vollständige Formular-Submit-Ablauf: Honeypot-Spamschutz (`#website`), Pflichtfeldvalidierung (rote Umrandung `#E07B54` bei Fehler), Datenzusammenstellung per `collectFormData()`, POST an n8n via `sendToN8n()`, anschließend Weiterleitung zu Digistore24 via `redirectToDigistore()`.
-
-## Ablauf des Anmeldeformulars
-
-```
-Nutzer wählt Kinderanzahl
-  → render.js rendert N Kind-Blöcke und stellt zuvor eingegebene Werte wieder her
-
-Nutzer sendet Formular ab
-  → Spam-Prüfung (Honeypot #website muss leer sein)
-  → validateRequiredFields() — markiert ungültige Felder, scrollt zum ersten Fehler
-  → collectFormData() — bereinigt und bündelt alle Felder in einem Objekt
-  → sendToN8n() — Fire-and-forget-POST an CONFIG.n8nWebhookUrl
-  → redirectToDigistore() — window.location auf CONFIG.digistoreBaseUrl?email=…&first_name=…&last_name=…
-```
 
 ## Externe Anbindungen
 
@@ -67,3 +29,15 @@ Beide URLs befinden sich ausschließlich in `config.js`:
 - Wenn Anforderungen unklar sind: nachfragen, nicht raten
 - Lieber eine kurze Rückfrage als falsch umsetzen
 - Bei größeren Aufgaben erst den Plan zeigen, dann umsetzen
+
+### Commit Types
+
+| Commit-Typ | Bedeutung                          | Wann verwenden?                                                                                    | Beispiel                                          |
+| ---------- | ---------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| `feat`     | Neue Funktionalität                | Für neue Features, z. B. das Hinzufügen einer neuen Anmeldeseite                                   | `feat: add login page`                            |
+| `fix`      | Fehlerbehebung                     | Für Bugfixes, z. B. das Beheben von Problemen mit der Skalierung von Bildern auf mobilen Geräten   | `fix: resolve bug with image loading flicker`     |
+| `docs`     | Dokumentation                      | Änderungen an der Dokumentation                                                                    | `docs: update README with new setup instructions` |
+| `style`    | Code-Formatierung                  | Änderungen, die nur das Format betreffen (z. B. Leerzeichen, Formatierungen), ohne Code-Änderungen | `style: fix indentation in main.js`               |
+| `refactor` | Code-Änderung ohne Bugfix/Funktion | Refaktorisierung von Code, z. B. Vereinfachung oder Umstrukturierung                               | `refactor: simplify login flow logic`             |
+| `perf`     | Code-Performance-Optimierung       | Änderungen zur Verbesserung der Leistung                                                           | `perf: code shortened to under 400 lines`         |
+| `test`     | Tests                              | Hinzufügen oder Ändern von Tests                                                                   | `test: add unit tests for login component`        |
