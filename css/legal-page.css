@@ -1,0 +1,49 @@
+/* Legal pages and 404: content styling on top of ki-kurse.css and fonts.css */
+.legal-notice-container,
+.privacy-policy-container,
+.usage-right-container{
+  width:100%; max-width:860px; margin:0 auto; padding:56px 20px 80px;
+  overflow-wrap:anywhere; hyphens:auto;
+}
+.legal-notice-container h1,
+.privacy-policy-container h1,
+.usage-right-container h1{
+  font-size:clamp(1.9rem,4vw,2.5rem); color:var(--teal-deep);
+  border-bottom:3px solid var(--teal-pop); padding-bottom:.8rem; margin-bottom:2rem;
+}
+.legal-notice-container h2,
+.privacy-policy-container h2,
+.usage-right-container h2{font-size:1.3rem; color:var(--teal); margin:2rem 0 .6rem;}
+.legal-notice-container h3,
+.privacy-policy-container h3,
+.usage-right-container h3{font-size:1.05rem; color:var(--teal-deep); margin:1.3rem 0 .4rem;}
+.legal-notice-container p,
+.privacy-policy-container p,
+.usage-right-container p,
+.legal-notice-container li,
+.privacy-policy-container li,
+.usage-right-container li{color:var(--ink-soft); font-size:.97rem; line-height:1.75;}
+.legal-notice-container p,
+.privacy-policy-container p,
+.usage-right-container p{margin:0 0 .9rem;}
+.legal-notice-container a,
+.privacy-policy-container a,
+.usage-right-container a{color:var(--teal); font-weight:600;}
+.legal-notice-container a:hover,
+.privacy-policy-container a:hover,
+.usage-right-container a:hover{color:var(--teal-deep);}
+
+/* Content blocks */
+.top-left-corner{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.5rem 1.6rem; margin-bottom:1.4rem; box-shadow:var(--shadow);
+}
+@media (max-width:520px){ .top-left-corner{padding:1.1rem 1rem;} }
+
+/* Back link */
+.back-to-main-page{display:flex; justify-content:center; padding:1rem 0 .4rem;}
+.back-to-main-page a{
+  border:2px solid var(--teal-deep); border-radius:999px; padding:.6rem 1.3rem;
+  color:var(--teal-deep); text-decoration:none;
+}
+.back-to-main-page a:hover{background:var(--teal-deep); color:#fff; text-decoration:none;}

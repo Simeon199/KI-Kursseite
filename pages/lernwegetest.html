@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+<title>Lernwegetest</title>
+<meta name="description" content="Finde in wenigen Minuten heraus, ob du Checker, Macher, Lauscher oder Schnacker bist – mit sofortiger Auswertung direkt auf der Seite.">
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="../css/lernwegetest-intro.css">
+<link rel="stylesheet" href="../css/lernwegetest-quiz.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand-header">
+    <img class="rc-logo" src="../assets/reincampus-logo.png" width="700" height="165" alt="Rein Campus">
+    <div class="brand">Lern<span>wege</span>test</div>
+  </div>
+
+  <!-- INTRO -->
+  <section id="screen-intro">
+    <div class="tag-banner">Welcher Lernweg passt zu dir?</div>
+
+    <div class="intro-copy">
+      <p>Jeder lernt ein bisschen anders. Vielleicht merkst du dir Dinge besonders gut, wenn du sie siehst oder hörst. Vielleicht hilft es dir mehr, wenn du etwas aufschreibst, ausprobierst oder jemandem erklärst.</p>
+      <p>Mit unserem Test findest du heraus, welche Lernwege dir besonders liegen – und wie du sie für dein Lernen nutzen kannst.</p>
+      <p>Dabei geht es nicht darum, dich in eine Schublade zu stecken. Denn meistens funktioniert Lernen am besten, wenn du verschiedene Wege miteinander kombinierst.</p>
+      <p><strong>Das Entscheidende:</strong> Je aktiver du dich mit einem Thema beschäftigst, desto besser kann dein Gehirn neue Informationen verarbeiten und mit deinem Wissen verbinden.</p>
+      <p><strong>Unser Tipp:</strong> Nicht nur lesen. Erklär es. Schreib es auf. Probier es aus. Stell Fragen. So findest du Schritt für Schritt heraus, was dir beim Lernen wirklich hilft.</p>
+      <p class="intro-callout"><strong>Finde deinen Weg.</strong><br>Verstehe, wie du lernst – und mach Lernen leichter.</p>
+    </div>
+
+    <div class="type-panel">
+      <h2>Welcher Lernweg passt zu dir?</h2>
+      <div class="type-grid" id="type-grid"></div>
+      <div class="type-outro">
+        <h3>Und welcher Lernweg passt zu dir?</h3>
+        <p>Vielleicht hast du dich schon bei mehreren wiedererkannt. Das ist ganz normal. Denn die meisten von uns lernen nicht nur auf einem Weg.</p>
+        <p>Entscheidend ist, herauszufinden, was dir beim Lernen wirklich hilft – und verschiedene Lernwege clever miteinander zu kombinieren.</p>
+      </div>
+      <button class="cta" id="start-test" type="button">Finde deinen Lernweg</button>
+    </div>
+    <p class="fineprint">10 Fragen &middot; ca. 5 Minuten &middot; Auswertung erscheint sofort auf dieser Seite</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz">
+    <div class="quiz-card">
+      <div class="quiz-question">
+        <div class="quiz-number" id="quiz-number">1</div>
+        <p id="quiz-text"></p>
+      </div>
+      <div class="quiz-answers">
+        <p class="answers-label">Markiere die zutreffende Antwort</p>
+        <div id="quiz-options"></div>
+      </div>
+    </div>
+    <button class="quiz-next" id="btn-next" type="button" disabled>weiter <span aria-hidden="true">›</span></button>
+    <button class="quiz-back" id="btn-back" type="button">‹ eine Frage zurück</button>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="screen-results">
+    <div class="stack">
+      <div class="result-hero">
+        <p class="result-eyebrow">Deine Auswertung</p>
+        <div id="result-body"></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Deine Lerntypen im Überblick</h3>
+        <div id="bars"></div>
+      </div>
+
+      <div class="restart-row">
+        <button class="ghost-restart" id="btn-restart" type="button">Test neu starten</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script type="module" src="../js/quiz-page.js"></script>
+</body>
+</html>
