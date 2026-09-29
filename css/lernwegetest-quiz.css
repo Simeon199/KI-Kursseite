@@ -96,16 +96,26 @@
 .quiz-next:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
 
 .quiz-back{
-  display:block;
-  margin:.9rem auto 0;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  margin:1.1rem auto 0;
+  width:max-content;
+  padding:.5rem 1.1rem;
   background:none;
-  border:none;
-  color:var(--ink-mute);
+  border:1.5px solid var(--line);
+  border-radius:999px;
+  color:var(--ink-soft);
   font-family:'Mulish', sans-serif;
-  font-size:.85rem;
+  font-weight:600;
+  font-size:.9rem;
   cursor:pointer;
-  text-decoration:underline;
+  transition:color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
 }
+.quiz-back span{font-size:1.2rem; line-height:1; transition:transform .2s ease;}
+.quiz-back:not(:disabled):hover{color:var(--teal-pop); border-color:var(--teal-pop); background:rgba(31,201,191,.12); transform:translateY(-1px);}
+.quiz-back:not(:disabled):hover span{transform:translateX(-3px);}
+.quiz-back:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
 .quiz-back:disabled{visibility:hidden;}
 
 .dots{
@@ -257,5 +267,5 @@ button.ghost-restart:hover{border-color:var(--accent-orange); color:var(--ink);}
 button.ghost-restart:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
 
 @media (prefers-reduced-motion: reduce){
-  .bar-fill, .quiz-next, button.cta{transition:none;}
+  .bar-fill, .quiz-next, button.cta, .quiz-back, .quiz-back span, .rc-logo{transition:none;}
 }

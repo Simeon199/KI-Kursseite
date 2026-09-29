@@ -38,11 +38,15 @@ h1,h2,h3,.display{
 }
 
 .brand-header{margin-bottom:1.6rem;}
+.rc-home-link{display:inline-flex;}
+.rc-home-link:hover .rc-logo{transform:translateY(-2px) scale(1.04);}
+.rc-home-link:focus-visible{outline:3px solid var(--focus); outline-offset:4px; border-radius:6px;}
 .rc-logo{
   height:34px;
   width:auto;
   display:block;
   margin-bottom:.5rem;
+  transition:transform .2s ease;
 }
 .brand{
   font-family:'Baloo 2', system-ui, sans-serif;
