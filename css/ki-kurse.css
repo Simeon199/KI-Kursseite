@@ -98,6 +98,7 @@ header{position:sticky; top:0; z-index:20; background:rgba(246,250,249,.94); bac
 .offer .tag.soft{background:transparent; color:var(--c); border:1.5px solid var(--c);}
 .offer h3{font-size:1.4rem;}
 .offer .meta{color:var(--ink-soft); font-size:.92rem; margin:.3rem 0 .9rem;}
+.offer .sub{margin:.15rem 0 0; font-weight:700; color:var(--c);}
 .offer .outcome{font-weight:700; margin:0 0 .6rem;}
 .offer ul{margin:0 0 1.2rem; padding-left:1.1rem; font-size:.95rem;}
 .offer li{margin:.2rem 0;}
