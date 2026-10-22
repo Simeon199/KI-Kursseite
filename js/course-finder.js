@@ -7,7 +7,7 @@
 const RECOMMENDATIONS = {
   kind:   ['KI-Entdecker', 'Drei spielerische Ferien-Vormittage für Klasse 4–6.', '#jugendliche'],
   teen:   ['KI-Führerschein', 'Unser Bestseller: 5 Einheiten mit Zertifikat für Klasse 7–10.', '#jugendliche'],
-  me:     ['KI-Starter am Abend oder KI-Praxistag',
+  me:     ['KI im Berufsalltag oder KI-Praxistag',
     'Sechs Abende zum Einstieg oder ein kompakter Samstag mit Ihren eigenen Aufgaben.', '#berufstaetige'],
   senior: ['KI ohne Technikstress',
     'Sechs ruhige Vormittage in kleiner Gruppe. Für einen kurzen Einstieg eignet sich der Vortrag „Echt oder Fälschung?“.',
