@@ -16,13 +16,11 @@ Beide URLs befinden sich ausschließlich in `config.js`:
 ## Regeln
 
 - Installiere keine npm packages selber
-- Jede Änderung in logs/debug.log dokumentieren
 - Keine neuen Dateien ohne Rückfrage anlegen
 - Stelle bei HTML und CSS-Aufgaben immer auch das responsive Verhalten der Webseite (bis 320px Bildschirmauflösung) sicher.
 - Stelle sicher, dass keine Datei mehr als 400 Zeilen und keine JavaScript-Funktion mehr als 16 Zeilen Code enthält. Halte die Clean-Code-Prinzipien ein und lagere Funktionalitäten notfalls in Hilfsfunktionen aus, um alle Methoden schlank, lesbar und wartbar zu halten. Jede JavaScript-Funktion sollte - im Optimalfall - genau eine Aufgabe erfüllen.
 - Wenn sich CSS-Aufgaben mit der Flexbox beziehungsweise mit Grid lösen lassen, so präferiere stets den Flexbox-Ansatz.
 - Dokumentiere neu hinzugefügte JavaScript Funktionen automatisch nach JSDoc-Standard in englischer Sprache.
-- Dokumentiere vorgenommene Änderungen stets in der debugs.log Datei.
 
 ## Verhalten
 
