@@ -66,6 +66,11 @@ header{position:sticky; top:0; z-index:20; background:rgba(246,250,249,.94); bac
 .nav-links a:not(.btn):hover{color:var(--teal);}
 .nav-links .btn{padding:.55rem 1.1rem;}
 @media (max-width:900px){ .nav-links a:not(.btn){display:none;} }
+/* Mid widths (901–1000px): compact links and CTA so the pill never wraps or dominates the header */
+@media (min-width:901px) and (max-width:1000px){
+  .nav-links{gap:.9rem; font-size:.9rem;}
+  .nav-links .btn{padding:.45rem .95rem; font-size:.9rem; white-space:nowrap;}
+}
 
 /* Hero */
 .hero{padding:64px 0 48px;}
