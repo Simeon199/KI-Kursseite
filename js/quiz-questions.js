@@ -3,7 +3,7 @@
 export const QUESTIONS = [
   {
     type:'likert', target:'checker',
-    text:'Egal ob eine Vokabeltabelle in Englisch, eine Grafik in Deutsch oder ein Diagramm in Mathe … Du kannst dir diese Dinge gut merken und anschließend selbst aufzeichnen.',
+    text:'Egal ob eine Vokabeltabelle in Englisch, eine Grafik in Deutsch oder ein Diagramm in Mathe … Ihr Kind kann sich diese Dinge gut merken und anschließend selbst aufzeichnen.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, manchmal.', points:1},
@@ -12,17 +12,17 @@ export const QUESTIONS = [
   },
   {
     type:'forced',
-    text:'Du möchtest ein YouTube Video drehen und hochladen, weißt aber nicht wie. Was machst du?',
+    text:'Ihr Kind möchte ein YouTube-Video drehen und hochladen, weiß aber nicht wie. Was macht es?',
     options:[
-      {label:'Du suchst ein Tutorial auf YouTube, um zu sehen, wie es geht.', mapsTo:'lauscher'},
-      {label:'Du liest es auf einer Internetseite nach.', mapsTo:'checker'},
-      {label:'Du versuchst es einfach und probierst drauf los.', mapsTo:'macher'},
-      {label:'Du fragst deinen Kumpel oder deine BFF, ob sie das schon mal gemacht haben.', mapsTo:'schnacker'}
+      {label:'Es sucht ein Tutorial auf YouTube, um zu sehen, wie es geht.', mapsTo:'lauscher'},
+      {label:'Es liest es auf einer Internetseite nach.', mapsTo:'checker'},
+      {label:'Es versucht es einfach und probiert drauflos.', mapsTo:'macher'},
+      {label:'Es fragt Freunde, ob sie das schon mal gemacht haben.', mapsTo:'schnacker'}
     ]
   },
   {
     type:'likert', target:'schnacker',
-    text:'Du unterhältst dich in der Pause immer gerne mit anderen darüber, was abgeht.',
+    text:'Ihr Kind tauscht sich gern mit anderen darüber aus, was gerade los ist.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, manchmal.', points:1},
@@ -31,7 +31,7 @@ export const QUESTIONS = [
   },
   {
     type:'likert', target:'checker',
-    text:'Dein Lehrer kaut morgens beim konzentrierten Denken auf einem Filzstift herum und malt sich selbst an. Kannst du dich am Abend noch erinnern, mit welcher Farbe der Lehrer seinen Mund angemalt hat?',
+    text:'Die Lehrkraft kaut morgens beim konzentrierten Denken auf einem Filzstift herum und malt sich dabei selbst an. Könnte sich Ihr Kind am Abend noch erinnern, mit welcher Farbe der Mund angemalt war?',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, glaube schon.', points:1},
@@ -40,7 +40,7 @@ export const QUESTIONS = [
   },
   {
     type:'likert', target:'schnacker',
-    text:'Sachen, die du in einer Diskussion mit anderen besprichst, kannst du dir immer viel besser vorstellen als gelesene Texte.',
+    text:'Dinge, die Ihr Kind in einer Diskussion mit anderen bespricht, kann es sich viel besser vorstellen als gelesene Texte.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, denke schon.', points:1},
@@ -49,7 +49,7 @@ export const QUESTIONS = [
   },
   {
     type:'likert', target:'lauscher',
-    text:'Wenn du einen Songtext auswendig lernen willst, hörst du dir lieber das ganze Lied an, anstatt dir den Text durchzulesen.',
+    text:'Wenn Ihr Kind einen Songtext auswendig lernen will, hört es sich lieber das ganze Lied an, anstatt den Text durchzulesen.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, glaub’ schon.', points:1},
@@ -58,17 +58,17 @@ export const QUESTIONS = [
   },
   {
     type:'forced',
-    text:'Du planst eine Reise nach Las Vegas und bist dir noch unsicher über die genaue Route. Wie gehst du vor?',
+    text:'Angenommen, Ihr Kind plant eine Reise nach Las Vegas und ist sich bei der genauen Route noch unsicher. Wie geht es vor?',
     options:[
-      {label:'Du fragst Leute, die schon dort waren.', mapsTo:'schnacker'},
-      {label:'Du fliegst erstmal in die USA und schaust dann weiter.', mapsTo:'macher'},
-      {label:'Du hörst einen Reisebericht im Internetradio.', mapsTo:'lauscher'},
-      {label:'Du schnappst dir die Reiseführer aus den Bücherregalen von Freunden und der Bibliothek und verschaffst dir einen Überblick.', mapsTo:'checker'}
+      {label:'Es fragt Leute, die schon dort waren.', mapsTo:'schnacker'},
+      {label:'Es fliegt erst einmal in die USA und schaut dann weiter.', mapsTo:'macher'},
+      {label:'Es hört einen Reisebericht im Internetradio.', mapsTo:'lauscher'},
+      {label:'Es holt sich Reiseführer aus der Bibliothek oder von Freunden und verschafft sich einen Überblick.', mapsTo:'checker'}
     ]
   },
   {
     type:'likert', target:'macher',
-    text:'Wenn du dich bewegen kannst, während du lernst, geht es leichter und schneller.',
+    text:'Wenn sich Ihr Kind beim Lernen bewegen kann, geht es leichter und schneller.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, meistens.', points:1},
@@ -77,7 +77,7 @@ export const QUESTIONS = [
   },
   {
     type:'likert', target:'lauscher',
-    text:'Mündliche Erklärungen verstehst du sehr gut, selbst wenn die Inhalte richtig kompliziert sind.',
+    text:'Mündliche Erklärungen versteht Ihr Kind sehr gut, selbst wenn die Inhalte richtig kompliziert sind.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, manchmal.', points:1},
@@ -86,7 +86,7 @@ export const QUESTIONS = [
   },
   {
     type:'likert', target:'macher',
-    text:'Am liebsten führst du Experimente selber durch, praktische Themen liegen dir am meisten.',
+    text:'Am liebsten führt Ihr Kind Experimente selbst durch, praktische Themen liegen ihm am meisten.',
     options:[
       {label:'Ja, auf jeden Fall.', points:2},
       {label:'Ja, denke schon.', points:1},

@@ -21,7 +21,7 @@ export function renderTypeGrid() {
     const t = TYPES[key];
     return `<div class="type-item"><div class="type-icon">${ICONS[key]}</div>` +
       `<h3>Der ${t.name}</h3><p>${t.short}</p>` +
-      '<p class="type-strength"><span class="label">Deine Stärke:</span>' +
+      '<p class="type-strength"><span class="label">Stärke:</span>' +
       `<span class="value">${t.strength}</span></p></div>`;
   }).join('');
 }

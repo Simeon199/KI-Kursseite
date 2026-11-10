@@ -42,8 +42,8 @@ function nameRow(iconKey, titleHtml, tagline) {
  */
 function buildEmptyResult() {
   return '<h2 class="result-title">Noch unklar</h2><div class="result-desc"><p>Es wurden noch keine ' +
-    'eindeutigen Antworten gewertet. Mach den Test noch einmal und wähle bei jeder Frage die Antwort, ' +
-    'die am besten zu dir passt.</p></div>';
+    'eindeutigen Antworten gewertet. Machen Sie den Test noch einmal und wählen Sie bei jeder Frage die ' +
+    'Antwort, die am besten zu Ihrem Kind passt.</p></div>';
 }
 
 /**
@@ -59,7 +59,7 @@ function buildSingleResult(key) {
     `<ul class="tips-list">${t.tips.map(renderTip).join('')}</ul>` +
     `<h3 class="result-tips-heading">${t.importantHeading}</h3>` +
     `<div class="result-important">${paragraphs(t.importantParagraphs)}</div>` +
-    `<p class="result-strength"><strong>Deine Stärke:</strong> ${t.resultStrength}</p>`;
+    `<p class="result-strength"><strong>Stärke Ihres Kindes:</strong> ${t.resultStrength}</p>`;
 }
 
 /**
@@ -72,14 +72,15 @@ function buildMixedResult(top) {
   const tips = top.flatMap(k => TYPES[k].tips).slice(0, 6);
   const strengths = top.map(k => `${TYPES[k].name}: ${TYPES[k].resultStrength}`).join(' &middot; ');
   const intro = top.map(k => `<p>${TYPES[k].tagline} ${TYPES[k].paragraphs[0]}</p>`).join('');
-  return nameRow(top[0], `Du bist ein <em>${names}</em>-Mischtyp`, 'Mehrere Lernwege liegen dir etwa gleich gut.') +
+  return nameRow(top[0], `Ihr Kind ist ein <em>${names}</em>-Mischtyp`,
+    'Mehrere Lernwege liegen Ihrem Kind etwa gleich gut.') +
     `<div class="result-desc">${intro}</div>` +
-    '<h3 class="result-tips-heading">Das kannst du beim Lernen ausprobieren:</h3>' +
+    '<h3 class="result-tips-heading">Das kann Ihr Kind beim Lernen ausprobieren:</h3>' +
     `<ul class="tips-list">${tips.map(renderTip).join('')}</ul>` +
     '<h3 class="result-tips-heading">Wichtig zu wissen</h3>' +
-    '<div class="result-important"><p>Du profitierst von mehreren Lernwegen gleichzeitig – nutze das bewusst und ' +
-    'wechsle zwischen den Strategien, je nachdem was du gerade lernst.</p></div>' +
-    `<p class="result-strength"><strong>Deine Stärke:</strong> ${strengths}</p>`;
+    '<div class="result-important"><p>Ihr Kind profitiert von mehreren Lernwegen gleichzeitig. Es kann das ' +
+    'bewusst nutzen und zwischen den Strategien wechseln, je nachdem, was es gerade lernt.</p></div>' +
+    `<p class="result-strength"><strong>Stärken Ihres Kindes:</strong> ${strengths}</p>`;
 }
 
 /**

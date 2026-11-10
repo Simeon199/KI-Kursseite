@@ -10,103 +10,103 @@ export const ICONS = {
 export const TYPES = {
   checker:{
     name:'Checker', name_key:'visuell',
-    short:'Du verstehst Dinge besonders gut, wenn du sie sehen kannst. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen dir, Zusammenhänge zu erkennen und Wissen zu ordnen.',
+    short:'Ihr Kind versteht Dinge besonders gut, wenn es sie sehen kann. Bilder, Skizzen, Farben, Mindmaps oder Videos helfen ihm, Zusammenhänge zu erkennen und Wissen zu ordnen.',
     strength:'Sehen &amp; Strukturieren',
-    tagline:'Lernen durch Sehen liegt dir besonders.',
+    tagline:'Lernen durch Sehen liegt Ihrem Kind besonders.',
     paragraphs:[
-      'Du verstehst Dinge besonders gut, wenn du sie vor dir sehen kannst. Bilder, Skizzen, Grafiken, Farben oder Videos helfen dir dabei, Zusammenhänge zu erkennen und neue Informationen zu ordnen.',
-      'Mach dir den Lernstoff deshalb sichtbar. Statt eine Seite immer wieder nur zu lesen, kannst du wichtige Informationen markieren, Zusammenhänge aufzeichnen oder aus einem komplizierten Thema eine übersichtliche Skizze machen.'
+      'Ihr Kind versteht Dinge besonders gut, wenn es sie vor sich sehen kann. Bilder, Skizzen, Grafiken, Farben oder Videos helfen ihm dabei, Zusammenhänge zu erkennen und neue Informationen zu ordnen.',
+      'Ermutigen Sie Ihr Kind deshalb, den Lernstoff sichtbar zu machen. Statt eine Seite immer wieder nur zu lesen, kann es wichtige Informationen markieren, Zusammenhänge aufzeichnen oder aus einem komplizierten Thema eine übersichtliche Skizze machen.'
     ],
-    tipsHeading:'Das kannst du beim Lernen ausprobieren:',
+    tipsHeading:'Das kann Ihr Kind beim Lernen ausprobieren:',
     tips:[
-      {lead:'Markiere Wichtiges:', text:'Hebe Schlüsselbegriffe und zentrale Informationen hervor. Aber Vorsicht: Wenn am Ende alles bunt ist, hilft dir das nicht weiter. Weniger ist mehr!'},
-      {lead:'Arbeite mit Farben:', text:'Gib bestimmten Farben eine Bedeutung. Zum Beispiel eine Farbe für wichtige Begriffe und eine andere für Beispiele oder Formeln.'},
-      {lead:'Nutze Symbole:', text:'Kleine Zeichen und Symbole auf Karteikarten oder in deinen Notizen können dir helfen, Informationen schneller zu erkennen und zuzuordnen.'},
-      {lead:'Erstelle Mindmaps:', text:'Ordne ein Thema rund um einen zentralen Begriff an und verbinde die einzelnen Informationen miteinander. So kannst du Zusammenhänge auf einen Blick erkennen.'},
-      {lead:'Mach aus Wissen Bilder:', text:'Denk dir zu schwierigen Begriffen oder Fakten ein passendes Bild aus. Je ungewöhnlicher oder lustiger die Vorstellung ist, desto leichter kann sie im Gedächtnis bleiben.'},
-      {lead:'Zeichne Zusammenhänge:', text:'Pfeile, Kästen, kleine Skizzen oder einfache Schaubilder können aus einer langen Textseite eine verständliche Übersicht machen.'},
-      {lead:'Sorge für Übersicht:', text:'Ein aufgeräumter Arbeitsplatz kann dabei helfen, unnötige Ablenkungen aus deinem Blickfeld zu entfernen. Auf den Tisch kommt am besten nur das, was du gerade zum Lernen brauchst.'}
+      {lead:'Wichtiges markieren:', text:'Schlüsselbegriffe und zentrale Informationen hervorheben. Aber Vorsicht: Wenn am Ende alles bunt ist, hilft das nicht weiter. Weniger ist mehr!'},
+      {lead:'Mit Farben arbeiten:', text:'Bestimmten Farben eine Bedeutung geben, zum Beispiel eine Farbe für wichtige Begriffe und eine andere für Beispiele oder Formeln.'},
+      {lead:'Symbole nutzen:', text:'Kleine Zeichen und Symbole auf Karteikarten oder in den Notizen helfen, Informationen schneller zu erkennen und zuzuordnen.'},
+      {lead:'Mindmaps erstellen:', text:'Ein Thema rund um einen zentralen Begriff anordnen und die einzelnen Informationen miteinander verbinden. So werden Zusammenhänge auf einen Blick sichtbar.'},
+      {lead:'Aus Wissen Bilder machen:', text:'Zu schwierigen Begriffen oder Fakten ein passendes Bild ausdenken. Je ungewöhnlicher oder lustiger die Vorstellung ist, desto leichter bleibt sie im Gedächtnis.'},
+      {lead:'Zusammenhänge zeichnen:', text:'Pfeile, Kästen, kleine Skizzen oder einfache Schaubilder machen aus einer langen Textseite eine verständliche Übersicht.'},
+      {lead:'Für Übersicht sorgen:', text:'Ein aufgeräumter Arbeitsplatz hält unnötige Ablenkungen aus dem Blickfeld. Auf den Tisch kommt am besten nur das, was Ihr Kind gerade zum Lernen braucht.'}
     ],
     importantHeading:'Wichtig zu wissen',
     importantParagraphs:[
-      'Auch wenn dir Lernen durch Sehen besonders liegt, solltest du nicht ausschließlich auf Bilder, Farben und Grafiken setzen.',
-      'Kombiniere verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
-      'Je aktiver du dich mit einem Lernstoff beschäftigst und je mehr sinnvolle Verbindungen du zu deinem vorhandenen Wissen herstellst, desto leichter kannst du ihn später wieder abrufen.'
+      'Auch wenn Ihrem Kind Lernen durch Sehen besonders liegt, sollte es nicht ausschließlich auf Bilder, Farben und Grafiken setzen.',
+      'Am besten kombiniert es verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
+      'Je aktiver sich Ihr Kind mit einem Lernstoff beschäftigt und je mehr sinnvolle Verbindungen es zu seinem vorhandenen Wissen herstellt, desto leichter kann es ihn später wieder abrufen.'
     ],
     resultStrength:'Sehen &amp; Strukturieren'
   },
   macher:{
     name:'Macher', name_key:'motorisch',
-    short:'Du willst nicht nur zuschauen, sondern selbst loslegen. Ausprobieren, üben und anwenden hilft dir dabei, neue Inhalte zu verstehen und zu behalten.',
+    short:'Ihr Kind will nicht nur zuschauen, sondern selbst loslegen. Ausprobieren, üben und anwenden hilft ihm dabei, neue Inhalte zu verstehen und zu behalten.',
     strength:'Ausprobieren &amp; Anwenden',
-    tagline:'Lernen durch Ausprobieren liegt dir besonders.',
+    tagline:'Lernen durch Ausprobieren liegt Ihrem Kind besonders.',
     paragraphs:[
-      'Learning by doing passt zu dir: Du verstehst Dinge besonders gut, wenn du selbst aktiv wirst, etwas ausprobierst und Wissen direkt anwendest.',
-      'Nur dasitzen und zuhören? Das kann für dich schnell anstrengend werden. Viel leichter fällt dir das Lernen, wenn Bewegung ins Spiel kommt oder du selbst etwas tun kannst. Experimente, praktische Übungen, Modelle oder kleine Aktionen helfen dir dabei, neue Inhalte zu verstehen und im Gedächtnis zu verankern.'
+      'Learning by doing passt zu Ihrem Kind: Es versteht Dinge besonders gut, wenn es selbst aktiv wird, etwas ausprobiert und Wissen direkt anwendet.',
+      'Nur dasitzen und zuhören? Das kann für Ihr Kind schnell anstrengend werden. Viel leichter fällt ihm das Lernen, wenn Bewegung ins Spiel kommt oder es selbst etwas tun kann. Experimente, praktische Übungen, Modelle oder kleine Aktionen helfen ihm dabei, neue Inhalte zu verstehen und im Gedächtnis zu verankern.'
     ],
-    tipsHeading:'Das kannst du beim Lernen ausprobieren:',
+    tipsHeading:'Das kann Ihr Kind beim Lernen ausprobieren:',
     tips:[
-      {lead:'Lernen in Bewegung:', text:'Lauf beim Auswendiglernen durch dein Zimmer. Verbinde bestimmte Stellen oder Bewegungen mit einzelnen Begriffen oder Lerninhalten.'},
-      {lead:'Mach Wissen sichtbar:', text:'Stelle Abläufe mit Gegenständen nach, baue ein Modell oder nutze deine Hände, um dir Zusammenhänge klarzumachen.'},
-      {lead:'Gesten als Gedächtnisstütze:', text:'Verbinde wichtige Begriffe mit einer bestimmten Bewegung. Die Bewegung kann dir später helfen, dich wieder an den Inhalt zu erinnern.'},
-      {lead:'Vom Wissen ins Tun:', text:'Rechne Aufgaben, führe kleine Experimente durch oder probiere eine Methode direkt aus. Für dich gilt besonders: Nicht nur anschauen – anwenden!'},
-      {lead:'Bewegte Lernpausen:', text:'Nutze kurze Pausen, um aufzustehen, dich zu bewegen oder ein paar Schritte zu gehen. Danach kann dein Kopf wieder konzentrierter weiterarbeiten.'}
+      {lead:'Lernen in Bewegung:', text:'Beim Auswendiglernen durchs Zimmer laufen und bestimmte Stellen oder Bewegungen mit einzelnen Begriffen oder Lerninhalten verbinden.'},
+      {lead:'Wissen sichtbar machen:', text:'Abläufe mit Gegenständen nachstellen, ein Modell bauen oder die Hände nutzen, um sich Zusammenhänge klarzumachen.'},
+      {lead:'Gesten als Gedächtnisstütze:', text:'Wichtige Begriffe mit einer bestimmten Bewegung verbinden. Die Bewegung hilft später, sich wieder an den Inhalt zu erinnern.'},
+      {lead:'Vom Wissen ins Tun:', text:'Aufgaben rechnen, kleine Experimente durchführen oder eine Methode direkt ausprobieren. Für Ihr Kind gilt besonders: Nicht nur anschauen – anwenden!'},
+      {lead:'Bewegte Lernpausen:', text:'Kurze Pausen nutzen, um aufzustehen, sich zu bewegen oder ein paar Schritte zu gehen. Danach kann der Kopf wieder konzentrierter weiterarbeiten.'}
     ],
     importantHeading:'Wichtig zu wissen',
     importantParagraphs:[
-      'Auch wenn dir Lernen durch Bewegung und Ausprobieren besonders liegt, solltest du dich nicht darauf beschränken.',
-      'Kombiniere verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
-      'Je mehr Wege du beim Lernen nutzt, desto mehr Möglichkeiten gibst du deinem Gehirn, neues Wissen zu verarbeiten und wieder abzurufen.'
+      'Auch wenn Ihrem Kind Lernen durch Bewegung und Ausprobieren besonders liegt, sollte es sich nicht darauf beschränken.',
+      'Am besten kombiniert es verschiedene Lernwege: anschauen, zuhören, erklären, aufschreiben und selbst ausprobieren.',
+      'Je mehr Wege Ihr Kind beim Lernen nutzt, desto mehr Möglichkeiten bekommt sein Gehirn, neues Wissen zu verarbeiten und wieder abzurufen.'
     ],
     resultStrength:'Ausprobieren &amp; Anwenden'
   },
   lauscher:{
     name:'Lauscher', name_key:'auditiv',
-    short:'Du merkst dir Dinge besonders gut, wenn du sie hörst. Erklärungen, Gespräche oder den Lernstoff selbst laut auszusprechen kann dir beim Lernen helfen.',
+    short:'Ihr Kind merkt sich Dinge besonders gut, wenn es sie hört. Erklärungen, Gespräche oder den Lernstoff selbst laut auszusprechen kann ihm beim Lernen helfen.',
     strength:'Hören &amp; Erinnern',
-    tagline:'Lernen durch Hören liegt dir besonders.',
+    tagline:'Lernen durch Hören liegt Ihrem Kind besonders.',
     paragraphs:[
-      'Du kannst dir Dinge gut merken, wenn du sie hörst, erklärt bekommst oder selbst laut aussprichst. Wenn jemand einen komplizierten Zusammenhang verständlich erklärt, macht es bei dir oft schneller „Klick", als wenn du ihn nur im Schulbuch liest.',
-      'Auch deine eigene Stimme kannst du beim Lernen nutzen. Erkläre dir den Lernstoff selbst, sprich wichtige Begriffe laut aus oder erzähle mit deinen eigenen Worten, was du gerade gelernt hast.'
+      'Ihr Kind kann sich Dinge gut merken, wenn es sie hört, erklärt bekommt oder selbst laut ausspricht. Wenn jemand einen komplizierten Zusammenhang verständlich erklärt, macht es bei ihm oft schneller „Klick“, als wenn es ihn nur im Schulbuch liest.',
+      'Auch die eigene Stimme kann Ihr Kind beim Lernen nutzen: sich den Lernstoff selbst erklären, wichtige Begriffe laut aussprechen oder mit eigenen Worten erzählen, was es gerade gelernt hat.'
     ],
-    tipsHeading:'Das kannst du beim Lernen ausprobieren:',
+    tipsHeading:'Das kann Ihr Kind beim Lernen ausprobieren:',
     tips:[
-      {text:'Lies dir wichtige Inhalte laut vor. So nimmst du den Lernstoff nicht nur über das Lesen, sondern zusätzlich über das Hören auf.'},
-      {lead:'Erklär es dir selbst:', text:'Stell dir vor, du müsstest jemand anderem das Thema erklären. Sprich deine Erklärung laut aus – möglichst mit deinen eigenen Worten.'},
-      {lead:'Mach deine eigenen Lern-Audios:', text:'Nimm Zusammenfassungen, Vokabeln oder wichtige Begriffe mit dem Smartphone auf und hör sie dir später noch einmal an.'},
-      {lead:'Nutze Audioangebote:', text:'Podcasts, Hörtexte und Erklärvideos können eine gute Ergänzung sein – besonders beim Sprachenlernen und für die richtige Aussprache.'},
-      {lead:'Frag nach Erklärungen:', text:'Wenn du etwas nicht verstehst, lass es dir erklären. Manchmal reicht ein anderer Satz oder ein anderes Beispiel und plötzlich wird es klar.'},
-      {lead:'Sorge für Ruhe:', text:'Geräusche können deine Aufmerksamkeit schnell auf sich ziehen. Teste deshalb, ob du dich in einer ruhigen Umgebung besser konzentrieren kannst.'}
+      {text:'Wichtige Inhalte laut vorlesen. So nimmt Ihr Kind den Lernstoff nicht nur über das Lesen, sondern zusätzlich über das Hören auf.'},
+      {lead:'Sich selbst erklären:', text:'Sich vorstellen, jemand anderem das Thema zu erklären, und die Erklärung laut aussprechen – möglichst mit eigenen Worten.'},
+      {lead:'Eigene Lern-Audios:', text:'Zusammenfassungen, Vokabeln oder wichtige Begriffe mit dem Smartphone aufnehmen und später noch einmal anhören.'},
+      {lead:'Audioangebote nutzen:', text:'Podcasts, Hörtexte und Erklärvideos können eine gute Ergänzung sein – besonders beim Sprachenlernen und für die richtige Aussprache.'},
+      {lead:'Nach Erklärungen fragen:', text:'Wenn Ihr Kind etwas nicht versteht, darf es sich das erklären lassen. Manchmal reicht ein anderer Satz oder ein anderes Beispiel und plötzlich wird es klar.'},
+      {lead:'Für Ruhe sorgen:', text:'Geräusche ziehen die Aufmerksamkeit schnell auf sich. Testen Sie gemeinsam, ob sich Ihr Kind in einer ruhigen Umgebung besser konzentrieren kann.'}
     ],
     importantHeading:'Wichtig zu wissen',
     importantParagraphs:[
-      'Auch wenn dir Lernen durch Hören besonders liegt, solltest du andere Lernwege nicht außer Acht lassen.',
-      'Kombiniere zum Beispiel Hören mit Aufschreiben, Anschauen, Erklären und Anwenden. So beschäftigst du dich auf unterschiedliche Weise mit dem Lernstoff und kannst ihn besser verarbeiten.'
+      'Auch wenn Ihrem Kind Lernen durch Hören besonders liegt, sollte es andere Lernwege nicht außer Acht lassen.',
+      'Gut ist zum Beispiel, Hören mit Aufschreiben, Anschauen, Erklären und Anwenden zu kombinieren. So beschäftigt sich Ihr Kind auf unterschiedliche Weise mit dem Lernstoff und kann ihn besser verarbeiten.'
     ],
     resultStrength:'Hören &amp; Erklären'
   },
   schnacker:{
     name:'Erklärer', name_key:'kommunikativ',
-    short:'Du lernst besonders gut, wenn du dich mit anderen austauschst. Fragen stellen, über ein Thema sprechen oder es jemandem erklären hilft dir, deine Gedanken zu sortieren und Wissen zu festigen.',
+    short:'Ihr Kind lernt besonders gut, wenn es sich mit anderen austauscht. Fragen stellen, über ein Thema sprechen oder es jemandem erklären hilft ihm, seine Gedanken zu sortieren und Wissen zu festigen.',
     strength:'Austauschen &amp; Erklären',
-    tagline:'Lernen durch Austausch liegt dir besonders.',
+    tagline:'Lernen durch Austausch liegt Ihrem Kind besonders.',
     paragraphs:[
-      'Du verstehst Dinge besonders gut, wenn du darüber sprechen, Fragen stellen und deine Gedanken mit anderen teilen kannst. Einfach nur lesen und auswendig lernen? Das reicht dir oft nicht.',
-      'Wenn du jemandem einen Lernstoff mit deinen eigenen Worten erklärst, merkst du schnell, was du schon verstanden hast – und wo noch eine Lücke steckt. Gespräche und Diskussionen helfen dir dabei, deine Gedanken zu sortieren und Zusammenhänge besser zu verstehen.'
+      'Ihr Kind versteht Dinge besonders gut, wenn es darüber sprechen, Fragen stellen und seine Gedanken mit anderen teilen kann. Einfach nur lesen und auswendig lernen? Das reicht ihm oft nicht.',
+      'Wenn Ihr Kind jemandem einen Lernstoff mit eigenen Worten erklärt, merkt es schnell, was es schon verstanden hat – und wo noch eine Lücke steckt. Gespräche und Diskussionen helfen ihm dabei, seine Gedanken zu sortieren und Zusammenhänge besser zu verstehen.'
     ],
-    tipsHeading:'Das kannst du beim Lernen ausprobieren:',
+    tipsHeading:'Das kann Ihr Kind beim Lernen ausprobieren:',
     tips:[
-      {lead:'Erklär es jemandem:', text:'Schnapp dir einen Freund, eine Freundin oder jemanden aus deiner Familie und erkläre das Thema so, als wärst du selbst der Lehrer. Kannst du es verständlich erklären, hast du schon viel verstanden.'},
-      {lead:'Lernt gemeinsam:', text:'Trefft euch zu zweit oder in einer kleinen Gruppe. Stellt euch gegenseitig Fragen, vergleicht eure Antworten und erklärt euch schwierige Stellen.'},
-      {lead:'Mach eine Quizrunde:', text:'Schreibt Fragen zum aktuellen Lernstoff auf Karteikarten und legt sie verdeckt auf den Tisch. Zieht abwechselnd eine Karte und versucht, die Frage möglichst genau zu beantworten. Für eine richtige Antwort gibt es einen Punkt – und für eine besonders gute Erklärung vielleicht sogar einen Extrapunkt.'},
-      {lead:'Stell Fragen:', text:'Wenn dir etwas unklar ist, frag nach. Eine gute Frage kann dir manchmal mehr bringen als zehn Minuten weiteres Lesen.'},
-      {lead:'Diskutiere verschiedene Lösungen:', text:'Gerade bei schwierigen Aufgaben kann es helfen, unterschiedliche Lösungswege miteinander zu vergleichen. Erklärt euch gegenseitig, wie ihr auf eure Lösung gekommen seid.'}
+      {lead:'Jemandem erklären:', text:'Ihr Kind erklärt einem Freund, einer Freundin oder Ihnen das Thema so, als wäre es selbst die Lehrkraft. Kann es das verständlich erklären, hat es schon viel verstanden.'},
+      {lead:'Gemeinsam lernen:', text:'Zu zweit oder in einer kleinen Gruppe lernen: sich gegenseitig Fragen stellen, Antworten vergleichen und schwierige Stellen erklären.'},
+      {lead:'Quizrunde machen:', text:'Fragen zum aktuellen Lernstoff auf Karteikarten schreiben und verdeckt auf den Tisch legen. Abwechselnd wird eine Karte gezogen und die Frage möglichst genau beantwortet. Für eine richtige Antwort gibt es einen Punkt – und für eine besonders gute Erklärung vielleicht sogar einen Extrapunkt. Das funktioniert auch gut als Familienrunde.'},
+      {lead:'Fragen stellen:', text:'Wenn etwas unklar ist, nachfragen. Eine gute Frage bringt manchmal mehr als zehn Minuten weiteres Lesen.'},
+      {lead:'Lösungen diskutieren:', text:'Gerade bei schwierigen Aufgaben hilft es, unterschiedliche Lösungswege zu vergleichen und sich gegenseitig zu erklären, wie man auf die Lösung gekommen ist.'}
     ],
     importantHeading:'Wichtig zu wissen',
     importantParagraphs:[
-      'Auch wenn dir Lernen durch Austausch und Erklären besonders liegt, funktioniert gemeinsames Lernen nur dann gut, wenn ihr wirklich beim Thema bleibt.',
-      'Und auch für dich gilt: Kombiniere verschiedene Lernwege. Anschauen, zuhören, aufschreiben, ausprobieren und erklären ergänzen sich.',
-      'Je mehr du einen Lernstoff selbst verarbeitest und mit deinem vorhandenen Wissen verbindest, desto besser kannst du ihn verstehen und später wieder abrufen.'
+      'Auch wenn Ihrem Kind Lernen durch Austausch und Erklären besonders liegt, funktioniert gemeinsames Lernen nur dann gut, wenn alle wirklich beim Thema bleiben.',
+      'Und auch für Ihr Kind gilt: Verschiedene Lernwege kombinieren. Anschauen, zuhören, aufschreiben, ausprobieren und erklären ergänzen sich.',
+      'Je mehr Ihr Kind einen Lernstoff selbst verarbeitet und mit seinem vorhandenen Wissen verbindet, desto besser kann es ihn verstehen und später wieder abrufen.'
     ],
     resultStrength:'Austauschen &amp; Erklären'
   }
