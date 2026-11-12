@@ -181,3 +181,9 @@ button.cta:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
   text-align:center;
   margin-top:1rem;
 }
+
+/* Footer with analytics settings button (consent.css styles the button). */
+.quiz-footer{padding:1.5rem 0 2rem; text-align:center; font-size:.9rem; color:var(--ink-mute);}
+.quiz-footer a{color:inherit; text-decoration:underline; text-underline-offset:3px;}
+.quiz-footer a:hover,.quiz-footer button:hover{color:var(--ink);}
+.quiz-footer button{text-decoration:underline; text-underline-offset:3px;}

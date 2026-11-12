@@ -1,0 +1,102 @@
+/* Analytics consent banner (js/analytics-consent.js). Self-contained: also used on pages without ki-kurse.css. */
+.consent-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  max-width: 920px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 20px 24px;
+  border: 1px solid #d7e6e4;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(12,59,61,.18);
+  color: #0c2f31;
+}
+
+.consent-banner[hidden] {
+  display: none;
+}
+
+.consent-banner-text {
+  flex: 1 1 320px;
+  margin: 0;
+  color: #3d5a5b;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.consent-banner-text a {
+  color: #12787a;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.consent-banner-status {
+  flex: 1 1 100%;
+  margin: 0;
+  color: #0c2f31;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.consent-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.consent-banner-actions button {
+  flex: 1 1 auto;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: #12787a;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.consent-banner-actions button:hover {
+  background: #0c3b3d;
+}
+
+@media (max-width: 480px) {
+  .consent-banner {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    max-height: calc(100vh - 16px);
+    padding: 16px;
+  }
+}
+
+/* Footer button "Analyse-Einstellungen", styled like the footer links. */
+footer button.js-analytics-settings {
+  font: inherit;
+  color: inherit;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color .2s, background-size .25s;
+}
+
+footer button.js-analytics-settings:hover {
+  color: #c26f3f;
+  background-size: 100% 1px;
+}
+
+footer button.js-analytics-settings:focus-visible {
+  outline: 2px solid #1fc9bf;
+  outline-offset: 3px;
+}
